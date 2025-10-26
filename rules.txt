@@ -1,0 +1,98 @@
+### Present Simple
+Настоящее простое время используется для:
+- Регулярных действий: I go to school every day
+- Фактов: The sun rises in the east
+- Расписаний: The train leaves at 9 AM
+- Привычек: She drinks coffee every morning
+
+Формула:
+• I/You/We/They + глагол (базовая форма)
+• He/She/It + глагол + s/es
+
+Примеры:
+- I work in an office
+- She works in a bank
+- They play tennis
+- He watches TV
+
+Слова-маркеры: always, usually, often, sometimes, never, every day/week/month/year
+
+### Past Simple
+Прошедшее простое время используется для:
+- Завершенных действий в прошлом: I visited Paris last year
+- Последовательных действий: He came home, had dinner and went to bed
+- Привычек в прошлом: When I was young, I played football
+
+Формула:
+• Правильные глаголы: глагол + ed (worked, played, visited)
+• Неправильные глаголы: 2-я форма (went, saw, bought)
+
+Вопрос: Did + подлежащее + глагол (базовая форма)?
+Отрицание: Подлежащее + didn't + глагол (базовая форма)
+
+Слова-маркеры: yesterday, last week/month/year, ago, in 2010
+
+### Future Simple
+Будущее простое время используется для:
+- Предсказаний: It will rain tomorrow
+- Спонтанных решений: I'll help you
+- Обещаний: I will call you later
+- Фактов о будущем: I will be 30 next year
+
+Формула: Подлежащее + will + глагол (базовая форма)
+Сокращение: I'll, you'll, he'll, she'll, we'll, they'll
+Вопрос: Will + подлежащее + глагол?
+Отрицание: Подлежащее + won't (will not) + глагол
+
+Слова-маркеры: tomorrow, next week/month/year, in the future, soon
+
+### Present Continuous
+Настоящее продолженное время используется для:
+- Действий, происходящих сейчас: I am reading a book
+- Временных ситуаций: I am living in London this month
+- Запланированных действий: We are meeting tomorrow
+- Изменяющихся ситуаций: The weather is getting better
+
+Формула:
+• I + am + глагол+ing
+• He/She/It + is + глагол+ing
+• You/We/They + are + глагол+ing
+
+Правила добавления -ing:
+- Обычно просто добавляем -ing: work → working
+- Глаголы на -e: убираем e и добавляем -ing: make → making
+- Короткие глаголы с согласной: удваиваем согласную: run → running
+
+Слова-маркеры: now, at the moment, currently, these days, Look!, Listen!
+
+### Past Continuous
+Прошедшее продолженное время используется для:
+- Действий в процессе в определенный момент прошлого: I was sleeping at 10 PM
+- Фоновых действий: While I was cooking, he was watching TV
+- Прерванных действий: I was reading when the phone rang
+- Параллельных действий: They were singing and dancing
+
+Формула:
+• I/He/She/It + was + глагол+ing
+• You/We/They + were + глагол+ing
+
+Вопрос: Was/Were + подлежащее + глагол+ing?
+Отрицание: Подлежащее + wasn't/weren't + глагол+ing
+
+Слова-маркеры: while, when, as, all day/night, at 5 o'clock yesterday
+
+### Present Perfect
+Настоящее совершенное время используется для:
+- Опыта: I have been to London
+- Изменений: You have grown so much!
+- Действий с результатом в настоящем: I have lost my keys
+- Незаконченных периодов: I have worked here for 5 years
+
+Формула:
+• I/You/We/They + have + причастие прошедшего времени
+• He/She/It + has + причастие прошедшего времени
+
+Правильные глаголы: глагол + ed (worked, played)
+Неправильные глаголы: 3-я форма (been, seen, done)
+
+Слова-маркеры: already, just, yet, ever, never, for, since, recently
