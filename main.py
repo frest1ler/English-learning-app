@@ -8,7 +8,7 @@ class EnglishLearningApp:
     def __init__(self, root):
         self.root = root
         self.root.title("English Learning App")
-        self.root.geometry("900x700")
+        self.root.geometry("950x750")
         self.root.configure(bg='#f0f0f0')
         
         # Загрузка данных
@@ -22,6 +22,12 @@ class EnglishLearningApp:
         self.current_rule = None
         self.score = 0
         self.total_attempts = 0
+        
+        # Переменные для упражнений
+        self.selected_topics = []
+        self.mixed_exercises = []
+        self.current_exercise_index = 0
+        self.exercise_results = []
         
         # Переменные для теста
         self.test_mode = False
@@ -73,6 +79,7 @@ class EnglishLearningApp:
                         parts = line.split('|')
                         if len(parts) >= 2:
                             exercises[current_rule].append({
+                                'rule': current_rule,
                                 'sentence': parts[0].strip(),
                                 'answer': parts[1].strip(),
                                 'hint': parts[2].strip() if len(parts) > 2 else ''
@@ -435,7 +442,7 @@ I ___ (work) here for two years | have worked | Период до настоящ
         
         tk.Button(
             control_frame,
-            text="П��казать перевод",
+            text="Показать перевод",
             command=self.show_translation,
             font=('Arial', 12),
             bg='#e74c3c',
@@ -484,54 +491,138 @@ I ___ (work) here for two years | have worked | Период до настоящ
     
     def create_exercises_tab(self):
         """Создание вкладки с упражнениями по грамматике"""
-        # Верхняя панель с выбором темы
-        top_frame = tk.Frame(self.exercises_frame, bg='#ecf0f1')
-        top_frame.pack(fill='x', padx=20, pady=10)
+        # Главный контейнер
+        main_container = tk.Frame(self.exercises_frame, bg='#ecf0f1')
+        main_container.pack(fill='both', expand=True)
+        
+        # Левая панель с выбором тем
+        left_panel = tk.Frame(main_container, bg='white', relief='raised', bd=1)
+        left_panel.pack(side='left', fill='y', padx=10, pady=10)
         
         tk.Label(
-            top_frame,
-            text="Выберите тему:",
-            font=('Arial', 12, 'bold'),
-            bg='#ecf0f1'
-        ).pack(side='left', padx=10)
+            left_panel,
+            text="📝 Выберите темы:",
+            font=('Arial', 13, 'bold'),
+            bg='white',
+            fg='#2c3e50'
+        ).pack(pady=10, padx=10)
         
-        # Выпадающий список с темами
-        self.topic_var = tk.StringVar()
-        self.topic_combo = ttk.Combobox(
-            top_frame,
-            textvariable=self.topic_var,
-            font=('Arial', 11),
-            width=30,
-            state='readonly'
-        )
-        self.topic_combo.pack(side='left', padx=10)
+        # Фрейм для чекбоксов
+        checkbox_frame = tk.Frame(left_panel, bg='white')
+        checkbox_frame.pack(padx=10, pady=5)
         
-        # Заполняем список темами из упражнений
-        if self.exercises_data:
-            topics = list(self.exercises_data.keys())
-            self.topic_combo['values'] = topics
-            if topics:
-                self.topic_combo.current(0)
+        # Словарь для хранения переменных чекбоксов
+        self.topic_vars = {}
+        
+        # Создаем чекбоксы для каждой темы
+        for topic in self.exercises_data.keys():
+            var = tk.BooleanVar()
+            self.topic_vars[topic] = var
+            
+            cb = tk.Checkbutton(
+                checkbox_frame,
+                text=f"{topic} ({len(self.exercises_data[topic])})",
+                variable=var,
+                font=('Arial', 11),
+                bg='white',
+                anchor='w',
+                command=self.update_selected_topics
+            )
+            cb.pack(fill='x', pady=3)
+        
+        # Кнопки выбора всех/сброса
+        button_frame = tk.Frame(left_panel, bg='white')
+        button_frame.pack(pady=10)
         
         tk.Button(
-            top_frame,
-            text="Начать упражнения",
-            command=self.start_exercises,
-            font=('Arial', 11),
+            button_frame,
+            text="✅ Выбрать все",
+            command=self.select_all_topics,
+            font=('Arial', 10),
             bg='#27ae60',
             fg='white',
-            padx=15,
+            padx=10,
             pady=5
-        ).pack(side='left', padx=10)
+        ).pack(side='left', padx=3)
+        
+        tk.Button(
+            button_frame,
+            text="❌ Снять все",
+            command=self.deselect_all_topics,
+            font=('Arial', 10),
+            bg='#e74c3c',
+            fg='white',
+            padx=10,
+            pady=5
+        ).pack(side='left', padx=3)
+        
+        # Информация о выбранных темах
+        self.selected_info_label = tk.Label(
+            left_panel,
+            text="Выбрано тем: 0\nВсего упражнений: 0",
+            font=('Arial', 10),
+            bg='white',
+            fg='#7f8c8d'
+        )
+        self.selected_info_label.pack(pady=5)
+        
+        # Настройки упражнений
+        settings_frame = tk.Frame(left_panel, bg='white')
+        settings_frame.pack(pady=10)
+        
+        tk.Label(
+            settings_frame,
+            text="Количество упражнений:",
+            font=('Arial', 10),
+            bg='white'
+        ).pack()
+        
+        self.exercise_count_var = tk.IntVar(value=10)
+        self.exercise_count_scale = tk.Scale(
+            settings_frame,
+            from_=5,
+            to=30,
+            orient='horizontal',
+            variable=self.exercise_count_var,
+            bg='white',
+            length=150
+        )
+        self.exercise_count_scale.pack(pady=5)
+        
+        # Кнопка начала упражнений
+        tk.Button(
+            left_panel,
+            text="🚀 Начать упражнения",
+            command=self.start_mixed_exercises,
+            font=('Arial', 12, 'bold'),
+            bg='#3498db',
+            fg='white',
+            padx=20,
+            pady=10
+        ).pack(pady=15)
+        
+        # Правая панель с упражнениями
+        right_panel = tk.Frame(main_container, bg='#ecf0f1')
+        right_panel.pack(side='right', fill='both', expand=True, padx=10, pady=10)
         
         # Фрейм для упражнения
-        exercise_frame = tk.Frame(self.exercises_frame, bg='white', relief='raised', bd=2)
-        exercise_frame.pack(pady=20, padx=20, fill='both', expand=True)
+        exercise_frame = tk.Frame(right_panel, bg='white', relief='raised', bd=2)
+        exercise_frame.pack(fill='both', expand=True)
+        
+        # Название правила текущего упражнения
+        self.current_topic_label = tk.Label(
+            exercise_frame,
+            text="",
+            font=('Arial', 11),
+            bg='white',
+            fg='#8e44ad'
+        )
+        self.current_topic_label.pack(pady=5)
         
         # Название правила
         self.rule_title_label = tk.Label(
             exercise_frame,
-            text="Выберите тему и нажмите 'Начать упражнения'",
+            text="Выберите темы и нажмите 'Начать упражнения'",
             font=('Arial', 16, 'bold'),
             bg='white',
             fg='#2c3e50'
@@ -541,7 +632,7 @@ I ___ (work) here for two years | have worked | Период до настоящ
         # Задание
         self.exercise_instruction_label = tk.Label(
             exercise_frame,
-            text="Поставьте глагол в правильную форму:",
+            text="",
             font=('Arial', 12),
             bg='white',
             fg='#7f8c8d'
@@ -555,7 +646,7 @@ I ___ (work) here for two years | have worked | Период до настоящ
             font=('Arial', 18),
             bg='white',
             fg='#34495e',
-            wraplength=600
+            wraplength=500
         )
         self.sentence_label.pack(pady=20, padx=20)
         
@@ -570,7 +661,7 @@ I ___ (work) here for two years | have worked | Период до настоящ
         self.hint_label.pack(pady=5)
         
         # Поле для ввода ответа
-        answer_frame = tk.Frame(self.exercises_frame, bg='#ecf0f1')
+        answer_frame = tk.Frame(right_panel, bg='#ecf0f1')
         answer_frame.pack(pady=10)
         
         tk.Label(
@@ -612,7 +703,7 @@ I ___ (work) here for two years | have worked | Период до настоящ
         
         # Результат
         self.result_label = tk.Label(
-            self.exercises_frame,
+            right_panel,
             text="",
             font=('Arial', 14),
             bg='#ecf0f1'
@@ -621,7 +712,7 @@ I ___ (work) here for two years | have worked | Период до настоящ
         
         # Кнопка следующего упражнения
         self.next_exercise_btn = tk.Button(
-            self.exercises_frame,
+            right_panel,
             text="Следующее упражнение ▶",
             command=self.next_exercise,
             font=('Arial', 12),
@@ -634,7 +725,7 @@ I ___ (work) here for two years | have worked | Период до настоящ
         self.next_exercise_btn.pack(pady=10)
         
         # Прогресс и счет
-        progress_frame = tk.Frame(self.exercises_frame, bg='#ecf0f1')
+        progress_frame = tk.Frame(right_panel, bg='#ecf0f1')
         progress_frame.pack(pady=10)
         
         self.exercise_progress_label = tk.Label(
@@ -655,31 +746,78 @@ I ___ (work) here for two years | have worked | Период до настоящ
         )
         self.score_label.pack(side='left', padx=10)
     
-    def start_exercises(self):
-        """Начать упражнения по выбранной теме"""
-        selected_topic = self.topic_var.get()
-        if not selected_topic or selected_topic not in self.exercises_data:
-            messagebox.showwarning("Внимание", "Выберите тему для упражнений")
+    def update_selected_topics(self):
+        """Обновить информацию о выбранных темах"""
+        selected = [topic for topic, var in self.topic_vars.items() if var.get()]
+        total_exercises = sum(len(self.exercises_data[topic]) for topic in selected)
+        
+        self.selected_info_label.config(
+            text=f"Выбрано тем: {len(selected)}\nВсего упражнений: {total_exercises}"
+        )
+        
+        # Обновляем максимум для слайдера
+        if total_exercises > 0:
+            max_exercises = min(total_exercises, 30)
+            self.exercise_count_scale.config(to=max_exercises)
+            if self.exercise_count_var.get() > max_exercises:
+                self.exercise_count_var.set(max_exercises)
+    
+    def select_all_topics(self):
+        """Выбрать все темы"""
+        for var in self.topic_vars.values():
+            var.set(True)
+        self.update_selected_topics()
+    
+    def deselect_all_topics(self):
+        """Снять выбор со всех тем"""
+        for var in self.topic_vars.values():
+            var.set(False)
+        self.update_selected_topics()
+    
+    def start_mixed_exercises(self):
+        """Начать упражнения по выбранным темам"""
+        # Получаем выбранные темы
+        self.selected_topics = [topic for topic, var in self.topic_vars.items() if var.get()]
+        
+        if not self.selected_topics:
+            messagebox.showwarning("Внимание", "Выберите хотя бы одну тему!")
             return
         
-        self.current_rule = selected_topic
-        self.current_exercises = self.exercises_data[selected_topic].copy()
-        random.shuffle(self.current_exercises)
-        self.current_exercise_index = 0
+        # Собираем все упражнения из выбранных тем
+        all_exercises = []
+        for topic in self.selected_topics:
+            all_exercises.extend(self.exercises_data[topic])
         
-        # Обновляем заголовок
-        self.rule_title_label.config(text=f"📚 {selected_topic}")
+        # Перемешиваем и выбираем нужное количество
+        random.shuffle(all_exercises)
+        exercise_count = min(self.exercise_count_var.get(), len(all_exercises))
+        self.mixed_exercises = all_exercises[:exercise_count]
+        
+        # Сбрасываем счетчики
+        self.current_exercise_index = 0
+        self.exercise_results = []
+        
+        # Обновляем интерфейс
+        topics_text = ", ".join(self.selected_topics[:3])
+        if len(self.selected_topics) > 3:
+            topics_text += f" и еще {len(self.selected_topics) - 3}"
+        
+        self.rule_title_label.config(text=f"📚 Смешанные упражнения")
+        self.exercise_instruction_label.config(text="Поставьте глагол в правильную форму:")
         
         # Показываем первое упражнение
-        self.show_exercise()
+        self.show_mixed_exercise()
     
-    def show_exercise(self):
-        """Показать текущее упражнение"""
-        if not self.current_exercises or self.current_exercise_index >= len(self.current_exercises):
-            self.show_exercise_results()
+    def show_mixed_exercise(self):
+        """Показать текущее упражнение из смешанного списка"""
+        if self.current_exercise_index >= len(self.mixed_exercises):
+            self.show_mixed_results()
             return
         
-        self.current_exercise = self.current_exercises[self.current_exercise_index]
+        self.current_exercise = self.mixed_exercises[self.current_exercise_index]
+        
+        # Показываем из какой темы упражнение
+        self.current_topic_label.config(text=f"📌 Тема: {self.current_exercise['rule']}")
         
         # Обновляем предложение
         self.sentence_label.config(text=self.current_exercise['sentence'])
@@ -692,7 +830,7 @@ I ___ (work) here for two years | have worked | Период до настоящ
         
         # Обновляем прогресс
         self.exercise_progress_label.config(
-            text=f"Упражнение {self.current_exercise_index + 1} из {len(self.current_exercises)}"
+            text=f"Упражнение {self.current_exercise_index + 1} из {len(self.mixed_exercises)}"
         )
         
         # Фокус на поле ввода
@@ -713,7 +851,16 @@ I ___ (work) here for two years | have worked | Период до настоящ
         
         self.total_attempts += 1
         
-        if user_answer == correct_answer:
+        is_correct = user_answer == correct_answer
+        
+        # Сохраняем результат
+        self.exercise_results.append({
+            'exercise': self.current_exercise,
+            'user_answer': user_answer,
+            'is_correct': is_correct
+        })
+        
+        if is_correct:
             self.score += 1
             self.result_label.config(
                 text=f"✅ Правильно! {self.current_exercise['answer']}",
@@ -732,36 +879,179 @@ I ___ (work) here for two years | have worked | Период до настоящ
     def next_exercise(self):
         """Следующее упражнение"""
         self.current_exercise_index += 1
-        self.show_exercise()
+        self.show_mixed_exercise()
     
-    def show_exercise_results(self):
-        """Показать результаты упражнений"""
-        if not self.current_exercises:
+    def show_mixed_results(self):
+        """Показать результаты смешанных упражнений"""
+        if not self.mixed_exercises:
             return
         
-        total = len(self.current_exercises)
-        percentage = (self.score / self.total_attempts * 100) if self.total_attempts > 0 else 0
+        # Создаем окно с результатами
+        results_window = tk.Toplevel(self.root)
+        results_window.title("Результаты упражнений")
+        results_window.geometry("700x600")
+        results_window.configure(bg='#ecf0f1')
         
-        message = f"""
-        Упражнения по теме "{self.current_rule}" завершены!
+        # Заголовок
+        tk.Label(
+            results_window,
+            text="📊 Результаты упражнений",
+            font=('Arial', 18, 'bold'),
+            bg='#ecf0f1',
+            fg='#2c3e50'
+        ).pack(pady=15)
         
-        Результаты:
-        ✅ Правильных ответов: {self.score}
-        📝 Всего попыток: {self.total_attempts}
-        📊 Точность: {percentage:.1f}%
+        # Статистика
+        correct_count = sum(1 for r in self.exercise_results if r['is_correct'])
+        total_count = len(self.exercise_results)
+        percentage = (correct_count / total_count * 100) if total_count > 0 else 0
         
-        Хотите продолжить с другой темой?
-        """
+        stats_frame = tk.Frame(results_window, bg='white', relief='raised', bd=1)
+        stats_frame.pack(pady=10, padx=20, fill='x')
         
-        if messagebox.askyesno("Упражнения завершены", message):
-            # Сброс для новых упражнений
-            self.current_exercise_index = 0
-            self.current_exercise = None
-            self.sentence_label.config(text="")
-            self.exercise_progress_label.config(text="")
-            self.result_label.config(text="")
-            self.hint_label.config(text="")
-            self.rule_title_label.config(text="Выберите тему и нажмите 'Начать упражнения'")
+        # Определяем оценку
+        if percentage >= 90:
+            grade = "Отлично! 🎉"
+            grade_color = '#27ae60'
+        elif percentage >= 75:
+            grade = "Хорошо! 👍"
+            grade_color = '#3498db'
+        elif percentage >= 60:
+            grade = "Неплохо 📚"
+            grade_color = '#f39c12'
+        else:
+            grade = "Нужна практика 💪"
+            grade_color = '#e74c3c'
+        
+        tk.Label(
+            stats_frame,
+            text=grade,
+            font=('Arial', 16, 'bold'),
+            bg='white',
+            fg=grade_color
+        ).pack(pady=10)
+        
+        tk.Label(
+            stats_frame,
+            text=f"Правильных ответов: {correct_count} из {total_count}",
+            font=('Arial', 14),
+            bg='white'
+        ).pack(pady=5)
+        
+        tk.Label(
+            stats_frame,
+            text=f"Результат: {percentage:.1f}%",
+            font=('Arial', 14, 'bold'),
+            bg='white'
+        ).pack(pady=5)
+        
+        # Статистика по темам
+        topic_stats = {}
+        for result in self.exercise_results:
+            topic = result['exercise']['rule']
+            if topic not in topic_stats:
+                topic_stats[topic] = {'correct': 0, 'total': 0}
+            topic_stats[topic]['total'] += 1
+            if result['is_correct']:
+                topic_stats[topic]['correct'] += 1
+        
+        tk.Label(
+            results_window,
+            text="Результаты по темам:",
+            font=('Arial', 12, 'bold'),
+            bg='#ecf0f1'
+        ).pack(pady=10)
+        
+        topics_frame = tk.Frame(results_window, bg='white', relief='raised', bd=1)
+        topics_frame.pack(pady=5, padx=20, fill='x')
+        
+        for topic, stats in topic_stats.items():
+            topic_percentage = (stats['correct'] / stats['total'] * 100) if stats['total'] > 0 else 0
+            color = '#27ae60' if topic_percentage >= 75 else '#e74c3c' if topic_percentage < 50 else '#f39c12'
+            
+            tk.Label(
+                topics_frame,
+                text=f"{topic}: {stats['correct']}/{stats['total']} ({topic_percentage:.0f}%)",
+                font=('Arial', 11),
+                bg='white',
+                fg=color
+            ).pack(pady=3)
+        
+        # Детальные результаты
+        tk.Label(
+            results_window,
+            text="Подробные результаты:",
+            font=('Arial', 12, 'bold'),
+            bg='#ecf0f1'
+        ).pack(pady=10)
+        
+        # Создаем область с прокруткой
+        details_frame = tk.Frame(results_window, bg='white', relief='raised', bd=1)
+        details_frame.pack(pady=5, padx=20, fill='both', expand=True)
+        
+        text_widget = scrolledtext.ScrolledText(
+            details_frame,
+            font=('Arial', 10),
+            wrap=tk.WORD,
+            height=10,
+            bg='white'
+        )
+        text_widget.pack(fill='both', expand=True, padx=10, pady=10)
+        
+        # Заполняем детальными результатами
+        for i, result in enumerate(self.exercise_results, 1):
+            exercise = result['exercise']
+            symbol = "✓" if result['is_correct'] else "✗"
+            color = "green" if result['is_correct'] else "red"
+            
+            text_widget.insert(tk.END, f"{i}. [{exercise['rule']}]\n")
+            text_widget.insert(tk.END, f"   {exercise['sentence']}\n")
+            text_widget.insert(tk.END, f"   Правильный ответ: {exercise['answer']}\n")
+            if not result['is_correct']:
+                text_widget.insert(tk.END, f"   Ваш ответ: {result['user_answer']}\n")
+            text_widget.insert(tk.END, f"   {symbol}\n\n")
+        
+        text_widget.config(state='disabled')
+        
+        # Кнопки действий
+        button_frame = tk.Frame(results_window, bg='#ecf0f1')
+        button_frame.pack(pady=15)
+        
+        tk.Button(
+            button_frame,
+            text="Новые упражнения",
+            command=lambda: [results_window.destroy(), self.reset_exercises()],
+            font=('Arial', 12),
+            bg='#3498db',
+            fg='white',
+            padx=20,
+            pady=8
+        ).pack(side='left', padx=10)
+        
+        tk.Button(
+            button_frame,
+            text="Закрыть",
+            command=results_window.destroy,
+            font=('Arial', 12),
+            bg='#95a5a6',
+            fg='white',
+            padx=20,
+            pady=8
+        ).pack(side='left', padx=10)
+    
+    def reset_exercises(self):
+        """Сброс упражнений для новой сессии"""
+        self.current_exercise_index = 0
+        self.current_exercise = None
+        self.mixed_exercises = []
+        self.exercise_results = []
+        self.sentence_label.config(text="")
+        self.exercise_progress_label.config(text="")
+        self.result_label.config(text="")
+        self.hint_label.config(text="")
+        self.current_topic_label.config(text="")
+        self.rule_title_label.config(text="Выберите темы и нажмите 'Начать упражнения'")
+        self.exercise_instruction_label.config(text="")
     
     def show_test_setup(self):
         """Показать настройки теста"""
