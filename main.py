@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox, scrolledtext
 import random
 import json
 from datetime import datetime
+import os
 
 class EnglishLearningApp:
     def __init__(self, root):
@@ -16,12 +17,15 @@ class EnglishLearningApp:
         self.exercises_data = self.load_exercises()
         self.rules_data = self.load_rules()
         
+        # Загрузка прогресса
+        self.progress_data = self.load_progress()
+        
         # Переменные для отслеживания прогресса
         self.current_word_index = 0
         self.current_exercise = None
         self.current_rule = None
-        self.score = 0
-        self.total_attempts = 0
+        self.score = self.progress_data.get('score', 0)
+        self.total_attempts = self.progress_data.get('total_attempts', 0)
         
         # Переменные для упражнений
         self.selected_topics = []
@@ -37,27 +41,106 @@ class EnglishLearningApp:
         self.test_answers = []
         self.test_type = "eng_to_rus"
         
+        # Флаги для предотвращения множественных проверок
+        self.answer_checked = False
+        self.test_answer_checked = False
+        
         # Создание интерфейса
         self.create_widgets()
         
+        # Сохранение прогресса при закрытии
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+        
+        # Привязка горячих клавиш
+        self.bind_hotkeys()
+    
+    def bind_hotkeys(self):
+        """Привязка горячих клавиш"""
+        self.root.bind('<Control-s>', lambda e: self.save_progress())
+    
+    def load_progress(self):
+        """Загрузка сохраненного прогресса"""
+        try:
+            if os.path.exists('progress.json'):
+                with open('progress.json', 'r', encoding='utf-8') as f:
+                    return json.load(f)
+        except Exception as e:
+            print(f"Ошибка загрузки прогресса: {e}")
+        return {'score': 0, 'total_attempts': 0}
+    
+    def save_progress(self):
+        """Сохранение прогресса"""
+        try:
+            progress = {
+                'score': self.score,
+                'total_attempts': self.total_attempts,
+                'last_session': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
+            with open('progress.json', 'w', encoding='utf-8') as f:
+                json.dump(progress, f, ensure_ascii=False, indent=2)
+            print("Прогресс сохранен")
+        except Exception as e:
+            print(f"Ошибка сохранения прогресса: {e}")
+    
+    def on_closing(self):
+        """Обработка закрытия приложения"""
+        self.save_progress()
+        self.root.destroy()
+    
+    def get_default_words(self):
+        """Получить базовый набор слов"""
+        return [
+            {
+                'word': 'hello',
+                'translation': 'привет',
+                'transcription': '[həˈləʊ]',
+                'example': 'Hello! How are you today?',
+                'example_translation': 'Привет! Как дела сегодня?'
+            },
+            {
+                'word': 'world',
+                'translation': 'мир',
+                'transcription': '[wɜːld]',
+                'example': 'We live in a beautiful world.',
+                'example_translation': 'Мы живем в прекрасном мире.'
+            },
+            {
+                'word': 'learn',
+                'translation': 'учиться',
+                'transcription': '[lɜːn]',
+                'example': 'I want to learn English.',
+                'example_translation': 'Я хочу учить английский.'
+            }
+        ]
+    
     def load_words(self):
-        """Загрузка слов из файла"""
+        """Загрузка слов из файла с примерами использования"""
         try:
             with open('words.txt', 'r', encoding='utf-8') as f:
                 words = []
+                line_number = 0
                 for line in f:
+                    line_number += 1
                     if line.strip():
                         parts = line.strip().split('|')
-                        if len(parts) == 3:
-                            words.append({
+                        if len(parts) >= 3:
+                            word_dict = {
                                 'word': parts[0].strip(),
                                 'translation': parts[1].strip(),
-                                'transcription': parts[2].strip()
-                            })
-                return words
+                                'transcription': parts[2].strip(),
+                                'example': parts[3].strip() if len(parts) > 3 else '',
+                                'example_translation': parts[4].strip() if len(parts) > 4 else ''
+                            }
+                            words.append(word_dict)
+                        else:
+                            print(f"Предупреждение: неверный формат в строке {line_number}")
+                return words if words else self.get_default_words()
         except FileNotFoundError:
             self.create_sample_files()
             return self.load_words()
+        except Exception as e:
+            messagebox.showerror("Ошибка", f"Ошибка загрузки слов: {e}")
+            return self.get_default_words()
     
     def load_exercises(self):
         """Загрузка упражнений из файла"""
@@ -114,28 +197,28 @@ class EnglishLearningApp:
     
     def create_sample_files(self):
         """Создание примеров файлов"""
-        # Создание файла со словами
+        # Создание файла со словами (теперь с примерами)
         with open('words.txt', 'w', encoding='utf-8') as f:
-            f.write("""apple | яблоко | [ˈæpl]
-book | книга | [bʊk]
-cat | кот | [kæt]
-dog | собака | [dɒɡ]
-house | дом | [haʊs]
-water | вода | [ˈwɔːtə]
-friend | друг | [frend]
-school | школа | [skuːl]
-teacher | учитель | [ˈtiːtʃə]
-student | студент | [ˈstjuːdənt]
-computer | компьютер | [kəmˈpjuːtə]
-phone | телефон | [fəʊn]
-city | город | [ˈsɪti]
-country | страна | [ˈkʌntri]
-family | семья | [ˈfæmɪli]
-morning | утро | [ˈmɔːnɪŋ]
-evening | вечер | [ˈiːvnɪŋ]
-night | ночь | [naɪt]
-day | день | [deɪ]
-work | работа | [wɜːk]""")
+            f.write("""apple | яблоко | [ˈæpl] | I eat an apple every day. | Я ем яблоко каждый день.
+book | книга | [bʊk] | This book is very interesting. | Эта книга очень интересная.
+cat | кот | [kæt] | My cat likes to sleep. | Мой кот любит спать.
+dog | собака | [dɒɡ] | The dog is playing in the garden. | Собака играет в саду.
+house | дом | [haʊs] | We live in a big house. | Мы живем в большом доме.
+water | вода | [ˈwɔːtə] | I drink water every morning. | Я пью воду каждое утро.
+friend | друг | [frend] | She is my best friend. | Она моя лучшая подруга.
+school | школа | [skuːl] | Children go to school every day. | Дети ходят в школу каждый день.
+teacher | учитель | [ˈtiːtʃə] | Our teacher is very kind. | Наш учитель очень добрый.
+student | студент | [ˈstjuːdənt] | He is a good student. | Он хороший студент.
+computer | компьютер | [kəmˈpjuːtə] | I work on my computer. | Я работаю на компьютере.
+phone | телефон | [fəʊn] | Can you answer the phone? | Можешь ответить на телефон?
+city | город | [ˈsɪti] | London is a beautiful city. | Лондон - красивый город.
+country | страна | [ˈkʌntri] | France is a wonderful country. | Франция - замечательная страна.
+family | семья | [ˈfæmɪli] | I love my family. | Я люблю свою семью.
+morning | утро | [ˈmɔːnɪŋ] | Good morning! How are you? | Доброе утро! Как дела?
+evening | вечер | [ˈiːvnɪŋ] | We go for a walk in the evening. | Мы гуляем вечером.
+night | ночь | [naɪt] | The stars shine at night. | Звезды светят ночью.
+day | день | [deɪ] | Have a nice day! | Хорошего дня!
+work | работа | [wɜːk] | I go to work by bus. | Я езжу на работу на автобусе.""")
         
         # Создание файла с упражнениями
         with open('exercises.txt', 'w', encoding='utf-8') as f:
@@ -387,6 +470,42 @@ I ___ (work) here for two years | have worked | Период до настоящ
             pady=8
         ).pack(side='left', padx=5)
         
+        tk.Button(
+            mode_frame,
+            text="➕ Добавить слово",
+            command=self.show_add_word_dialog,
+            font=('Arial', 12, 'bold'),
+            bg='#27ae60',
+            fg='white',
+            padx=15,
+            pady=8
+        ).pack(side='left', padx=5)
+        
+        # Панель поиска
+        search_frame = tk.Frame(self.words_container, bg='#ecf0f1')
+        search_frame.pack(pady=10)
+        
+        tk.Label(
+            search_frame,
+            text="🔍 Поиск:",
+            font=('Arial', 11),
+            bg='#ecf0f1'
+        ).pack(side='left', padx=5)
+        
+        self.search_entry = tk.Entry(search_frame, font=('Arial', 11), width=20)
+        self.search_entry.pack(side='left', padx=5)
+        
+        tk.Button(
+            search_frame,
+            text="Найти",
+            command=self.search_word,
+            font=('Arial', 10),
+            bg='#3498db',
+            fg='white',
+            padx=10,
+            pady=5
+        ).pack(side='left', padx=5)
+        
         # Контейнер для режима изучения
         self.study_container = tk.Frame(self.words_container, bg='#ecf0f1')
         self.study_container.pack(fill='both', expand=True)
@@ -424,6 +543,28 @@ I ___ (work) here for two years | have worked | Период до настоящ
             fg='#27ae60'
         )
         self.translation_label.pack(pady=20)
+        
+        # НОВОЕ: Пример использования
+        self.example_label = tk.Label(
+            card_frame,
+            text="",
+            font=('Arial', 14, 'italic'),
+            bg='white',
+            fg='#3498db',
+            wraplength=600
+        )
+        self.example_label.pack(pady=10)
+        
+        # НОВОЕ: Перевод примера
+        self.example_translation_label = tk.Label(
+            card_frame,
+            text="",
+            font=('Arial', 13),
+            bg='white',
+            fg='#95a5a6',
+            wraplength=600
+        )
+        self.example_translation_label.pack(pady=5)
         
         # Кнопки управления
         control_frame = tk.Frame(self.study_container, bg='#ecf0f1')
@@ -473,6 +614,32 @@ I ___ (work) here for two years | have worked | Период до настоящ
             pady=10
         ).pack(side='left', padx=10)
         
+        # НОВОЕ: Кнопки для примеров
+        example_frame = tk.Frame(self.study_container, bg='#ecf0f1')
+        example_frame.pack(pady=10)
+        
+        tk.Button(
+            example_frame,
+            text="📝 Показать пример",
+            command=self.show_example,
+            font=('Arial', 11),
+            bg='#16a085',
+            fg='white',
+            padx=15,
+            pady=8
+        ).pack(side='left', padx=5)
+        
+        tk.Button(
+            example_frame,
+            text="🔄 Перевод примера",
+            command=self.show_example_translation,
+            font=('Arial', 11),
+            bg='#2980b9',
+            fg='white',
+            padx=15,
+            pady=8
+        ).pack(side='left', padx=5)
+        
         # Прогресс
         self.word_progress_label = tk.Label(
             self.study_container,
@@ -489,6 +656,160 @@ I ___ (work) here for two years | have worked | Период до настоящ
         # Показываем первое слово
         self.show_word()
     
+    def show_example(self):
+        """Показать пример использования слова"""
+        if self.test_mode and self.test_words:
+            # В режиме теста
+            word_data = self.test_words[self.test_current_index]
+        elif self.words_data:
+            # В режиме изучения
+            word_data = self.words_data[self.current_word_index]
+        else:
+            return
+        
+        if word_data.get('example'):
+            if self.test_mode:
+                self.test_example_label.config(text=f"💡 {word_data['example']}")
+            else:
+                self.example_label.config(text=f"💡 {word_data['example']}")
+        else:
+            if self.test_mode:
+                self.test_example_label.config(text="💡 Пример недоступен")
+            else:
+                self.example_label.config(text="💡 Пример недоступен")
+    
+    def show_example_translation(self):
+        """Показать перевод примера"""
+        if self.test_mode and self.test_words:
+            # В режиме теста
+            word_data = self.test_words[self.test_current_index]
+        elif self.words_data:
+            # В режиме изучения
+            word_data = self.words_data[self.current_word_index]
+        else:
+            return
+        
+        if word_data.get('example_translation'):
+            if self.test_mode:
+                self.test_example_translation_label.config(text=f"📖 {word_data['example_translation']}")
+            else:
+                self.example_translation_label.config(text=f"📖 {word_data['example_translation']}")
+        else:
+            if self.test_mode:
+                self.test_example_translation_label.config(text="📖 Перевод недоступен")
+            else:
+                self.example_translation_label.config(text="📖 Перевод недоступен")
+    
+    def show_add_word_dialog(self):
+        """Диалог добавления нового слова"""
+        dialog = tk.Toplevel(self.root)
+        dialog.title("Добавить новое слово")
+        dialog.geometry("500x450")
+        dialog.configure(bg='#ecf0f1')
+        
+        tk.Label(
+            dialog,
+            text="Добавить новое слово",
+            font=('Arial', 14, 'bold'),
+            bg='#ecf0f1'
+        ).pack(pady=15)
+        
+        # Поле для английского слова
+        tk.Label(dialog, text="Английское слово:", bg='#ecf0f1').pack(pady=5)
+        word_entry = tk.Entry(dialog, font=('Arial', 12), width=40)
+        word_entry.pack(pady=5)
+        
+        # Поле для перевода
+        tk.Label(dialog, text="Перевод:", bg='#ecf0f1').pack(pady=5)
+        translation_entry = tk.Entry(dialog, font=('Arial', 12), width=40)
+        translation_entry.pack(pady=5)
+        
+        # Поле для транскрипции
+        tk.Label(dialog, text="Транскрипция:", bg='#ecf0f1').pack(pady=5)
+        transcription_entry = tk.Entry(dialog, font=('Arial', 12), width=40)
+        transcription_entry.pack(pady=5)
+        
+        # НОВОЕ: Поле для примера
+        tk.Label(dialog, text="Пример использования (опционально):", bg='#ecf0f1').pack(pady=5)
+        example_entry = tk.Entry(dialog, font=('Arial', 12), width=40)
+        example_entry.pack(pady=5)
+        
+        # НОВОЕ: Поле для перевода примера
+        tk.Label(dialog, text="Перевод примера (опционально):", bg='#ecf0f1').pack(pady=5)
+        example_translation_entry = tk.Entry(dialog, font=('Arial', 12), width=40)
+        example_translation_entry.pack(pady=5)
+        
+        def add_word():
+            word = word_entry.get().strip()
+            translation = translation_entry.get().strip()
+            transcription = transcription_entry.get().strip()
+            example = example_entry.get().strip()
+            example_translation = example_translation_entry.get().strip()
+            
+            if not word or not translation:
+                messagebox.showwarning("Внимание", "Заполните обязательные поля!")
+                return
+            
+            if not transcription:
+                transcription = "[...]"
+            
+            # Добавляем слово в данные
+            self.words_data.append({
+                'word': word,
+                'translation': translation,
+                'transcription': transcription,
+                'example': example,
+                'example_translation': example_translation
+            })
+            
+            # Сохраняем в файл
+            try:
+                with open('words.txt', 'a', encoding='utf-8') as f:
+                    f.write(f"\n{word} | {translation} | {transcription} | {example} | {example_translation}")
+                messagebox.showinfo("Успешно", "Слово добавлено!")
+                dialog.destroy()
+                self.show_word()
+            except Exception as e:
+                messagebox.showerror("Ошибка", f"Не удалось сохранить слово: {e}")
+        
+        tk.Button(
+            dialog,
+            text="✅ Добавить",
+            command=add_word,
+            font=('Arial', 12),
+            bg='#27ae60',
+            fg='white',
+            padx=20,
+            pady=8
+        ).pack(pady=15)
+        
+        tk.Button(
+            dialog,
+            text="Отмена",
+            command=dialog.destroy,
+            font=('Arial', 11),
+            bg='#95a5a6',
+            fg='white',
+            padx=15,
+            pady=5
+        ).pack()
+    
+    def search_word(self):
+        """Поиск слова в словаре"""
+        search_term = self.search_entry.get().strip().lower()
+        if not search_term:
+            return
+        
+        for i, word_data in enumerate(self.words_data):
+            if (search_term in word_data['word'].lower() or 
+                search_term in word_data['translation'].lower()):
+                self.current_word_index = i
+                self.show_word()
+                messagebox.showinfo("Найдено", f"Слово найдено: {word_data['word']}")
+                return
+        
+        messagebox.showinfo("Не найдено", "Слово не найдено в словаре")
+        
     def create_exercises_tab(self):
         """Создание вкладки с упражнениями по грамматике"""
         # Главный контейнер
@@ -793,9 +1114,10 @@ I ___ (work) here for two years | have worked | Период до настоящ
         exercise_count = min(self.exercise_count_var.get(), len(all_exercises))
         self.mixed_exercises = all_exercises[:exercise_count]
         
-        # Сбрасываем счетчики
+        # Сбрасываем счетчики и флаги
         self.current_exercise_index = 0
         self.exercise_results = []
+        self.answer_checked = False
         
         # Обновляем интерфейс
         topics_text = ", ".join(self.selected_topics[:3])
@@ -814,6 +1136,9 @@ I ___ (work) here for two years | have worked | Период до настоящ
             self.show_mixed_results()
             return
         
+        # Сбрасываем флаг при показе нового упражнения
+        self.answer_checked = False
+        
         self.current_exercise = self.mixed_exercises[self.current_exercise_index]
         
         # Показываем из какой темы упражнение
@@ -824,6 +1149,7 @@ I ___ (work) here for two years | have worked | Период до настоящ
         
         # Очищаем поле ввода и результат
         self.answer_entry.delete(0, tk.END)
+        self.answer_entry.config(state='normal')
         self.result_label.config(text="")
         self.hint_label.config(text="")
         self.next_exercise_btn.config(state='disabled')
@@ -846,7 +1172,19 @@ I ___ (work) here for two years | have worked | Период до настоящ
         if not self.current_exercise:
             return
         
-        user_answer = self.answer_entry.get().strip().lower()
+        # Предотвращаем множественную проверку одного ответа
+        if self.answer_checked:
+            return
+        
+        user_answer = self.answer_entry.get().strip()
+        if not user_answer:
+            messagebox.showwarning("Внимание", "Введите ответ!")
+            return
+        
+        # Устанавливаем флаг, что ответ уже проверен
+        self.answer_checked = True
+        
+        user_answer = user_answer.lower()
         correct_answer = self.current_exercise['answer'].lower()
         
         self.total_attempts += 1
@@ -874,10 +1212,21 @@ I ___ (work) here for two years | have worked | Период до настоящ
         
         self.score_label.config(text=f"Счет: {self.score}/{self.total_attempts}")
         self.next_exercise_btn.config(state='normal')
+        
+        # Отключаем поле ввода после проверки
+        self.answer_entry.config(state='disabled')
+        
         self.update_stats()
+        self.save_progress()
     
     def next_exercise(self):
         """Следующее упражнение"""
+        # Сбрасываем флаг проверки ответа
+        self.answer_checked = False
+        
+        # Включаем поле ввода обратно
+        self.answer_entry.config(state='normal')
+        
         self.current_exercise_index += 1
         self.show_mixed_exercise()
     
@@ -1002,7 +1351,6 @@ I ___ (work) here for two years | have worked | Период до настоящ
         for i, result in enumerate(self.exercise_results, 1):
             exercise = result['exercise']
             symbol = "✓" if result['is_correct'] else "✗"
-            color = "green" if result['is_correct'] else "red"
             
             text_widget.insert(tk.END, f"{i}. [{exercise['rule']}]\n")
             text_widget.insert(tk.END, f"   {exercise['sentence']}\n")
@@ -1045,6 +1393,8 @@ I ___ (work) here for two years | have worked | Период до настоящ
         self.current_exercise = None
         self.mixed_exercises = []
         self.exercise_results = []
+        self.answer_checked = False
+        
         self.sentence_label.config(text="")
         self.exercise_progress_label.config(text="")
         self.result_label.config(text="")
@@ -1052,6 +1402,8 @@ I ___ (work) here for two years | have worked | Период до настоящ
         self.current_topic_label.config(text="")
         self.rule_title_label.config(text="Выберите темы и нажмите 'Начать упражнения'")
         self.exercise_instruction_label.config(text="")
+        self.answer_entry.config(state='normal')
+        self.answer_entry.delete(0, tk.END)
     
     def show_test_setup(self):
         """Показать настройки теста"""
@@ -1157,6 +1509,7 @@ I ___ (work) here for two years | have worked | Период до настоящ
         self.test_score = 0
         self.test_current_index = 0
         self.test_answers = []
+        self.test_answer_checked = False
         
         # Выбираем случайные слова для теста
         self.test_words = random.sample(self.words_data, min(words_count, len(self.words_data)))
@@ -1188,15 +1541,28 @@ I ___ (work) here for two years | have worked | Период до настоящ
         question_frame = tk.Frame(self.test_container, bg='white', relief='raised', bd=2)
         question_frame.pack(pady=20, padx=20, fill='both', expand=True)
         
+        # Инструкция
+        self.test_instruction_label = tk.Label(
+            question_frame,
+            text="",
+            font=('Arial', 12),
+            bg='white',
+            fg='#7f8c8d'
+        )
+        self.test_instruction_label.pack(pady=10)
+        
+        # Вопрос
         self.test_question_label = tk.Label(
             question_frame,
             text="",
             font=('Arial', 24, 'bold'),
             bg='white',
-            fg='#2c3e50'
+            fg='#2c3e50',
+            wraplength=600
         )
         self.test_question_label.pack(pady=30)
         
+        # Подсказка (транскрипция)
         self.test_hint_label = tk.Label(
             question_frame,
             text="",
@@ -1206,42 +1572,157 @@ I ___ (work) here for two years | have worked | Период до настоящ
         )
         self.test_hint_label.pack(pady=10)
         
-        # Варианты ответов
-        self.answer_frame = tk.Frame(question_frame, bg='white')
-        self.answer_frame.pack(pady=20)
+        # НОВОЕ: Пример использования в режиме теста
+        self.test_example_label = tk.Label(
+            question_frame,
+            text="",
+            font=('Arial', 13, 'italic'),
+            bg='white',
+            fg='#3498db',
+            wraplength=600
+        )
+        self.test_example_label.pack(pady=5)
         
-        self.answer_buttons = []
-        for i in range(4):
-            btn = tk.Button(
-                self.answer_frame,
-                text="",
-                font=('Arial', 14),
-                bg='#3498db',
-                fg='white',
-                width=30,
-                pady=10,
-                command=lambda x=i: self.check_test_answer(x)
-            )
-            btn.pack(pady=5)
-            self.answer_buttons.append(btn)
+        # НОВОЕ: Перевод примера в режиме теста
+        self.test_example_translation_label = tk.Label(
+            question_frame,
+            text="",
+            font=('Arial', 12),
+            bg='white',
+            fg='#95a5a6',
+            wraplength=600
+        )
+        self.test_example_translation_label.pack(pady=5)
+        
+        # Фрейм для ввода ответа
+        answer_input_frame = tk.Frame(question_frame, bg='white')
+        answer_input_frame.pack(pady=20)
+        
+        tk.Label(
+            answer_input_frame,
+            text="Ваш ответ:",
+            font=('Arial', 14, 'bold'),
+            bg='white',
+            fg='#2c3e50'
+        ).pack(pady=5)
+        
+        # Поле ввода ответа
+        self.test_answer_entry = tk.Entry(
+            answer_input_frame,
+            font=('Arial', 16),
+            width=30,
+            justify='center'
+        )
+        self.test_answer_entry.pack(pady=10)
+        self.test_answer_entry.bind('<Return>', lambda e: self.check_test_answer_input())
+        
+        # Результат проверки
+        self.test_result_label = tk.Label(
+            question_frame,
+            text="",
+            font=('Arial', 14, 'bold'),
+            bg='white'
+        )
+        self.test_result_label.pack(pady=10)
+        
+        # Показать правильный ответ (изначально скрыт)
+        self.test_correct_answer_label = tk.Label(
+            question_frame,
+            text="",
+            font=('Arial', 13),
+            bg='white',
+            fg='#27ae60'
+        )
+        self.test_correct_answer_label.pack(pady=5)
+        
+        # Кнопки управления
+        buttons_frame = tk.Frame(self.test_container, bg='#ecf0f1')
+        buttons_frame.pack(pady=15)
+        
+        # Кнопка проверки
+        self.test_check_button = tk.Button(
+            buttons_frame,
+            text="✓ Проверить",
+            command=self.check_test_answer_input,
+            font=('Arial', 12, 'bold'),
+            bg='#3498db',
+            fg='white',
+            padx=20,
+            pady=10
+        )
+        self.test_check_button.pack(side='left', padx=5)
+        
+        # Кнопка следующего вопроса (изначально скрыта)
+        self.test_next_button = tk.Button(
+            buttons_frame,
+            text="Следующий вопрос →",
+            command=self.next_test_question,
+            font=('Arial', 12, 'bold'),
+            bg='#27ae60',
+            fg='white',
+            padx=20,
+            pady=10,
+            state='disabled'
+        )
+        self.test_next_button.pack(side='left', padx=5)
         
         # Кнопка пропуска
-        tk.Button(
-            self.test_container,
+        self.test_skip_button = tk.Button(
+            buttons_frame,
             text="Пропустить →",
             command=self.skip_question,
             font=('Arial', 11),
             bg='#95a5a6',
             fg='white',
             padx=15,
-            pady=5
-        ).pack(pady=10)
+            pady=8
+        )
+        self.test_skip_button.pack(side='left', padx=5)
+        
+        # НОВОЕ: Кнопки для примеров в режиме теста
+        example_buttons_frame = tk.Frame(self.test_container, bg='#ecf0f1')
+        example_buttons_frame.pack(pady=10)
+        
+        tk.Button(
+            example_buttons_frame,
+            text="📝 Показать пример",
+            command=self.show_example,
+            font=('Arial', 11),
+            bg='#16a085',
+            fg='white',
+            padx=15,
+            pady=8
+        ).pack(side='left', padx=5)
+        
+        tk.Button(
+            example_buttons_frame,
+            text="🔄 Перевод примера",
+            command=self.show_example_translation,
+            font=('Arial', 11),
+            bg='#2980b9',
+            fg='white',
+            padx=15,
+            pady=8
+        ).pack(side='left', padx=5)
+        
+        # Счетчик правильных ответов
+        self.test_score_label = tk.Label(
+            self.test_container,
+            text="Правильных ответов: 0",
+            font=('Arial', 12, 'bold'),
+            bg='#ecf0f1',
+            fg='#27ae60'
+        )
+        self.test_score_label.pack(pady=5)
     
     def show_test_question(self):
         """Показать вопрос теста"""
         if self.test_current_index >= len(self.test_words):
             self.show_test_results()
             return
+        
+        # Сбрасываем флаг проверки ответа для нового вопроса
+        self.test_answer_checked = False
         
         current_word = self.test_words[self.test_current_index]
         
@@ -1256,77 +1737,165 @@ I ___ (work) here for two years | have worked | Период до настоящ
         else:
             question_type = self.test_type
         
-        # Формируем вопрос и варианты ответов
+        # Сохраняем текущий тип вопроса и правильный ответ
+        self.current_question_type = question_type
+        
+        # Формируем вопрос
         if question_type == "eng_to_rus":
+            self.test_instruction_label.config(text="Переведите на русский:")
             self.test_question_label.config(text=current_word['word'])
             self.test_hint_label.config(text=current_word['transcription'])
-            correct_answer = current_word['translation']
-            
-            wrong_answers = [w['translation'] for w in self.words_data 
-                           if w['translation'] != correct_answer]
+            self.current_correct_answer = current_word['translation']
         else:
+            self.test_instruction_label.config(text="Переведите на английский:")
             self.test_question_label.config(text=current_word['translation'])
-            self.test_hint_label.config(text="Выберите английский перевод")
-            correct_answer = current_word['word']
-            
-            wrong_answers = [w['word'] for w in self.words_data 
-                           if w['word'] != correct_answer]
+            self.test_hint_label.config(text="")
+            self.current_correct_answer = current_word['word']
         
-        # Выбираем 3 случайных неправильных ответа
-        wrong_answers = random.sample(wrong_answers, min(3, len(wrong_answers)))
+        # ИСПРАВЛЕНИЕ: Очищаем поле ввода и результаты
+        self.test_answer_entry.delete(0, tk.END)
+        self.test_answer_entry.config(state='normal', bg='white')
+        self.test_result_label.config(text="")
+        self.test_correct_answer_label.config(text="")
         
-        # Создаем список всех вариантов и перемешиваем
-        all_answers = wrong_answers + [correct_answer]
-        random.shuffle(all_answers)
+        # НОВОЕ: Очищаем примеры при новом вопросе
+        self.test_example_label.config(text="")
+        self.test_example_translation_label.config(text="")
         
-        # Сохраняем правильный ответ
-        self.correct_answer_index = all_answers.index(correct_answer)
+        # Настраиваем кнопки
+        self.test_check_button.config(state='normal')
+        self.test_next_button.config(state='disabled')
+        self.test_skip_button.config(state='normal')
         
-        # Обновляем кнопки с вариантами
-        for i, btn in enumerate(self.answer_buttons):
-            if i < len(all_answers):
-                btn.config(text=all_answers[i], state='normal', bg='#3498db')
-                btn.pack()
-            else:
-                btn.pack_forget()
+        # Фокус на поле ввода
+        self.test_answer_entry.focus()
+        
+        # Обновляем счетчик
+        self.test_score_label.config(text=f"Правильных ответов: {self.test_score}/{self.test_current_index}")
     
-    def check_test_answer(self, answer_index):
-        """Проверка ответа в тесте"""
-        is_correct = answer_index == self.correct_answer_index
+    def normalize_answer(self, answer):
+        """Нормализация ответа для более гибкой проверки"""
+        # Приводим к нижнему регистру
+        normalized = answer.lower().strip()
+        
+        # Удаляем лишние пробелы
+        normalized = ' '.join(normalized.split())
+        
+        # Для английских слов - убираем артикли в начале
+        articles = ['a ', 'an ', 'the ']
+        for article in articles:
+            if normalized.startswith(article):
+                normalized = normalized[len(article):]
+                break
+        
+        # Убираем точку в конце, если есть
+        normalized = normalized.rstrip('.')
+        
+        return normalized
+    
+    def check_test_answer_input(self):
+        """Проверка введенного ответа в тесте"""
+        # Предотвращаем множественную проверку
+        if self.test_answer_checked:
+            return
+        
+        user_answer = self.test_answer_entry.get().strip()
+        
+        if not user_answer:
+            messagebox.showwarning("Внимание", "Введите ответ!")
+            return
+        
+        # Устанавливаем флаг
+        self.test_answer_checked = True
+        
+        # Нормализуем ответы для сравнения
+        normalized_user_answer = self.normalize_answer(user_answer)
+        normalized_correct_answer = self.normalize_answer(self.current_correct_answer)
+        
+        # Проверяем правильность
+        is_correct = normalized_user_answer == normalized_correct_answer
         
         # Сохраняем результат
         self.test_answers.append({
             'word': self.test_words[self.test_current_index],
-            'is_correct': is_correct
+            'user_answer': user_answer,
+            'correct_answer': self.current_correct_answer,
+            'is_correct': is_correct,
+            'question_type': self.current_question_type
         })
         
         if is_correct:
             self.test_score += 1
-            self.answer_buttons[answer_index].config(bg='#27ae60')
+            self.test_result_label.config(
+                text="✅ Правильно!",
+                fg='#27ae60'
+            )
+            self.test_answer_entry.config(bg='#d4edda')  # Светло-зеленый фон
         else:
-            self.answer_buttons[answer_index].config(bg='#e74c3c')
-            self.answer_buttons[self.correct_answer_index].config(bg='#27ae60')
+            self.test_result_label.config(
+                text="❌ Неправильно",
+                fg='#e74c3c'
+            )
+            self.test_correct_answer_label.config(
+                text=f"Правильный ответ: {self.current_correct_answer}"
+            )
+            self.test_answer_entry.config(bg='#f8d7da')  # Светло-красный фон
         
-        # Отключаем все кнопки
-        for btn in self.answer_buttons:
-            btn.config(state='disabled')
+        # Обновляем счетчик
+        self.test_score_label.config(
+            text=f"Правильных ответов: {self.test_score}/{self.test_current_index + 1}"
+        )
         
-        # Переход к следующему вопросу через 1.5 секунды
-        self.root.after(1500, self.next_test_question)
+        # Отключаем поле ввода и кнопку проверки
+        self.test_answer_entry.config(state='disabled')
+        self.test_check_button.config(state='disabled')
+        self.test_skip_button.config(state='disabled')
+        
+        # Активируем кнопку следующего вопроса
+        self.test_next_button.config(state='normal')
+        self.test_next_button.focus()
     
     def skip_question(self):
         """Пропустить вопрос"""
+        # Предотвращаем пропуск уже отвеченного вопроса
+        if self.test_answer_checked:
+            return
+        
+        self.test_answer_checked = True
+        
+        # Сохраняем как неправильный ответ
         self.test_answers.append({
             'word': self.test_words[self.test_current_index],
-            'is_correct': False
+            'user_answer': '',
+            'correct_answer': self.current_correct_answer,
+            'is_correct': False,
+            'question_type': self.current_question_type
         })
-        self.next_test_question()
+        
+        # Показываем правильный ответ
+        self.test_result_label.config(
+            text="⏭️ Вопрос пропущен",
+            fg='#f39c12'
+        )
+        self.test_correct_answer_label.config(
+            text=f"Правильный ответ: {self.current_correct_answer}"
+        )
+        
+        # Переходим к следующему вопросу через 2 секунды
+        self.root.after(2000, self.next_test_question)
     
     def next_test_question(self):
         """Следующий вопрос теста"""
+        # Сбрасываем флаг и цвет поля ввода
+        self.test_answer_checked = False
+        self.test_answer_entry.config(bg='white')
+        
+        # ИСПРАВЛЕНИЕ: Очищаем поле ввода перед переходом к следующему вопросу
+        self.test_answer_entry.delete(0, tk.END)
+        
         self.test_current_index += 1
         self.show_test_question()
-    
+
     def show_test_results(self):
         """Показать результаты теста"""
         # Очищаем контейнер
@@ -1343,23 +1912,31 @@ I ___ (work) here for two years | have worked | Период до настоящ
         ).pack(pady=20)
         
         # Статистика
-        percentage = (self.test_score / len(self.test_words)) * 100
+        percentage = (self.test_score / len(self.test_words)) * 100 if len(self.test_words) > 0 else 0
         
         result_frame = tk.Frame(self.test_container, bg='white', relief='raised', bd=2)
         result_frame.pack(pady=10, padx=20, fill='x')
         
         # Определяем цвет и эмодзи в зависимости от результата
-        if percentage >= 80:
+        if percentage >= 90:
             color = '#27ae60'
             emoji = '🎉'
+            message = 'Превосходно!'
+        elif percentage >= 80:
+            color = '#2ecc71'
+            emoji = '🌟'
             message = 'Отлично!'
-        elif percentage >= 60:
-            color = '#f39c12'
+        elif percentage >= 70:
+            color = '#3498db'
             emoji = '👍'
             message = 'Хорошо!'
+        elif percentage >= 60:
+            color = '#f39c12'
+            emoji = '📚'
+            message = 'Неплохо!'
         else:
             color = '#e74c3c'
-            emoji = '📚'
+            emoji = '💪'
             message = 'Нужно больше практики!'
         
         tk.Label(
@@ -1385,9 +1962,71 @@ I ___ (work) here for two years | have worked | Период до настоящ
             fg=color
         ).pack(pady=5)
         
+        # Детальные результаты
+        tk.Label(
+            self.test_container,
+            text="📝 Подробные результаты:",
+            font=('Arial', 14, 'bold'),
+            bg='#ecf0f1',
+            fg='#2c3e50'
+        ).pack(pady=10)
+        
+        # Создаем область с прокруткой для детальных результатов
+        details_frame = tk.Frame(self.test_container, bg='white', relief='raised', bd=1)
+        details_frame.pack(pady=5, padx=20, fill='both', expand=True)
+        
+        text_widget = scrolledtext.ScrolledText(
+            details_frame,
+            font=('Arial', 11),
+            wrap=tk.WORD,
+            height=12,
+            bg='white'
+        )
+        text_widget.pack(fill='both', expand=True, padx=10, pady=10)
+        
+        # Заполняем детальными результатами
+        for i, result in enumerate(self.test_answers, 1):
+            word_data = result['word']
+            symbol = "✅" if result['is_correct'] else "❌"
+            
+            if result['question_type'] == 'eng_to_rus':
+                question = f"{word_data['word']} {word_data['transcription']}"
+            else:
+                question = word_data['translation']
+            
+            text_widget.insert(tk.END, f"{i}. {question}\n", "question")
+            
+            if result['is_correct']:
+                text_widget.insert(tk.END, f"   {symbol} Ваш ответ: {result['user_answer']}\n", "correct")
+            else:
+                if result['user_answer']:
+                    text_widget.insert(tk.END, f"   {symbol} Ваш ответ: {result['user_answer']}\n", "wrong")
+                else:
+                    text_widget.insert(tk.END, f"   {symbol} Вопрос пропущен\n", "skipped")
+                text_widget.insert(tk.END, f"   ✓ Правильный ответ: {result['correct_answer']}\n", "correct_answer")
+            
+            # НОВОЕ: Показываем примеры в результатах
+            if word_data.get('example'):
+                text_widget.insert(tk.END, f"   💡 Пример: {word_data['example']}\n", "example")
+                if word_data.get('example_translation'):
+                    text_widget.insert(tk.END, f"   📖 Перевод: {word_data['example_translation']}\n", "example_trans")
+            
+            text_widget.insert(tk.END, "\n")
+        
+        # Настройка тегов для цветного текста
+        text_widget.tag_config("question", foreground="#2c3e50", font=('Arial', 11, 'bold'))
+        text_widget.tag_config("correct", foreground="#27ae60")
+        text_widget.tag_config("wrong", foreground="#e74c3c")
+        text_widget.tag_config("skipped", foreground="#f39c12")
+        text_widget.tag_config("correct_answer", foreground="#27ae60", font=('Arial', 11, 'italic'))
+        text_widget.tag_config("example", foreground="#3498db", font=('Arial', 10, 'italic'))
+        text_widget.tag_config("example_trans", foreground="#95a5a6", font=('Arial', 10))
+        
+        text_widget.config(state='disabled')
+        
         # Кнопки действий
         button_frame = tk.Frame(self.test_container, bg='#ecf0f1')
-        button_frame.pack(pady=20)
+        button_frame.pack(pady=15)
         
         tk.Button(
             button_frame,
@@ -1426,12 +2065,14 @@ I ___ (work) here for two years | have worked | Период до настоящ
         self.total_attempts += len(self.test_words)
         self.score += self.test_score
         self.update_stats()
+        self.save_progress()
     
     def restart_test(self):
         """Перезапустить тот же тест"""
         self.test_current_index = 0
         self.test_score = 0
         self.test_answers = []
+        self.test_answer_checked = False
         random.shuffle(self.test_words)
         self.create_test_interface()
         self.show_test_question()
@@ -1450,6 +2091,11 @@ I ___ (work) here for two years | have worked | Период до настоящ
             self.word_label.config(text=word_data['word'])
             self.transcription_label.config(text=word_data['transcription'])
             self.translation_label.config(text="")
+            
+            # НОВОЕ: Очищаем примеры при показе нового слова
+            self.example_label.config(text="")
+            self.example_translation_label.config(text="")
+            
             self.word_progress_label.config(
                 text=f"Слово {self.current_word_index + 1} из {len(self.words_data)}"
             )
@@ -1509,16 +2155,18 @@ I ___ (work) here for two years | have worked | Период до настоящ
         content_frame = tk.Frame(self.rules_frame, bg='white', relief='raised', bd=2)
         content_frame.pack(side='right', fill='both', expand=True, padx=10, pady=10)
         
-        self.rule_title_label = tk.Label(
+        # ИСПРАВЛЕНО: переименовано для избежания конфликта
+        self.rules_title_label = tk.Label(
             content_frame,
             text="Выберите правило из списка",
             font=('Arial', 16, 'bold'),
             bg='white',
             fg='#2c3e50'
         )
-        self.rule_title_label.pack(pady=10)
+        self.rules_title_label.pack(pady=10)
         
-        self.rule_text = scrolledtext.ScrolledText(
+        # ИСПРАВЛЕНО: переименовано для избежания конфликта
+        self.rules_text_widget = scrolledtext.ScrolledText(
             content_frame,
             font=('Arial', 11),
             wrap=tk.WORD,
@@ -1526,7 +2174,7 @@ I ___ (work) here for two years | have worked | Период до настоящ
             height=25,
             bg='white'
         )
-        self.rule_text.pack(padx=10, pady=10, fill='both', expand=True)
+        self.rules_text_widget.pack(padx=10, pady=10, fill='both', expand=True)
     
     def show_rule(self, event):
         """Отображение выбранного правила"""
@@ -1534,9 +2182,9 @@ I ___ (work) here for two years | have worked | Период до настоящ
         if selection:
             index = selection[0]
             rule = self.rules_data[index]
-            self.rule_title_label.config(text=rule['title'])
-            self.rule_text.delete('1.0', tk.END)
-            self.rule_text.insert('1.0', rule['content'])
+            self.rules_title_label.config(text=rule['title'])
+            self.rules_text_widget.delete('1.0', tk.END)
+            self.rules_text_widget.insert('1.0', rule['content'])
     
     def create_stats_tab(self):
         """Создание вкладки со статистикой"""
@@ -1552,49 +2200,86 @@ I ___ (work) here for two years | have worked | Период до настоящ
         ).pack(pady=20)
         
         # Статистика по словам
-        words_frame = tk.Frame(stats_container, bg='white')
-        words_frame.pack(pady=10)
+        words_frame = tk.Frame(stats_container, bg='#ecf0f1', relief='raised', bd=1)
+        words_frame.pack(pady=10, padx=20, fill='x')
         
         tk.Label(
             words_frame,
-            text=f"📖 Всего слов в словаре: {len(self.words_data)}",
-            font=('Arial', 14),
-            bg='white'
+            text="📖 Словарь",
+            font=('Arial', 14, 'bold'),
+            bg='#ecf0f1'
         ).pack(pady=5)
         
+        tk.Label(
+            words_frame,
+            text=f"Всего слов: {len(self.words_data)}",
+            font=('Arial', 12),
+            bg='#ecf0f1'
+        ).pack(pady=3)
+        
+        # Подсчет слов с примерами
+        words_with_examples = sum(1 for word in self.words_data if word.get('example'))
+        tk.Label(
+            words_frame,
+            text=f"Слов с примерами: {words_with_examples}",
+            font=('Arial', 11),
+            bg='#ecf0f1',
+            fg='#7f8c8d'
+        ).pack(pady=2)
+        
         # Статистика по упражнениям
-        exercises_frame = tk.Frame(stats_container, bg='white')
-        exercises_frame.pack(pady=10)
+        exercises_frame = tk.Frame(stats_container, bg='#ecf0f1', relief='raised', bd=1)
+        exercises_frame.pack(pady=10, padx=20, fill='x')
+        
+        tk.Label(
+            exercises_frame,
+            text="✏️ Упражнения",
+            font=('Arial', 14, 'bold'),
+            bg='#ecf0f1'
+        ).pack(pady=5)
         
         self.stats_score_label = tk.Label(
             exercises_frame,
             text=f"✅ Правильных ответов: {self.score}",
-            font=('Arial', 14),
-            bg='white',
+            font=('Arial', 12),
+            bg='#ecf0f1',
             fg='#27ae60'
         )
-        self.stats_score_label.pack(pady=5)
+        self.stats_score_label.pack(pady=3)
         
         self.stats_total_label = tk.Label(
             exercises_frame,
             text=f"📝 Всего попыток: {self.total_attempts}",
-            font=('Arial', 14),
-            bg='white'
+            font=('Arial', 12),
+            bg='#ecf0f1'
         )
-        self.stats_total_label.pack(pady=5)
+        self.stats_total_label.pack(pady=3)
         
         self.accuracy_label = tk.Label(
             exercises_frame,
             text="📈 Точность: 0%",
-            font=('Arial', 14),
-            bg='white',
+            font=('Arial', 12, 'bold'),
+            bg='#ecf0f1',
             fg='#3498db'
         )
-        self.accuracy_label.pack(pady=5)
+        self.accuracy_label.pack(pady=3)
         
-        # Кнопка сброса статистики
+        # Последняя сессия
+        if 'last_session' in self.progress_data:
+            tk.Label(
+                stats_container,
+                text=f"🕒 Последняя сессия: {self.progress_data['last_session']}",
+                font=('Arial', 11),
+                bg='white',
+                fg='#7f8c8d'
+            ).pack(pady=10)
+        
+        # Кнопки
+        button_frame = tk.Frame(stats_container, bg='white')
+        button_frame.pack(pady=20)
+        
         tk.Button(
-            stats_container,
+            button_frame,
             text="🔄 Сбросить статистику",
             command=self.reset_stats,
             font=('Arial', 12),
@@ -1602,7 +2287,21 @@ I ___ (work) here for two years | have worked | Период до настоящ
             fg='white',
             padx=20,
             pady=10
-        ).pack(pady=20)
+        ).pack(side='left', padx=5)
+        
+        tk.Button(
+            button_frame,
+            text="💾 Сохранить прогресс",
+            command=lambda: [self.save_progress(), messagebox.showinfo("Успешно", "Прогресс сохранен!")],
+            font=('Arial', 12),
+            bg='#27ae60',
+            fg='white',
+            padx=20,
+            pady=10
+        ).pack(side='left', padx=5)
+        
+        # Обновляем статистику
+        self.update_stats()
     
     def update_stats(self):
         """Обновление статистики"""
@@ -1620,6 +2319,7 @@ I ___ (work) here for two years | have worked | Период до настоящ
             self.total_attempts = 0
             self.update_stats()
             self.score_label.config(text="Счет: 0/0")
+            self.save_progress()
             messagebox.showinfo("Успешно", "Статистика сброшена!")
 
 def main():

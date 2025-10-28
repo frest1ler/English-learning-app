@@ -1,20 +1,20 @@
-apple | яблоко | [ˈæpl]
-book | книга | [bʊk]
-cat | кот | [kæt]
-dog | собака | [dɒɡ]
-house | дом | [haʊs]
-water | вода | [ˈwɔːtə]
-friend | друг | [frend]
-school | школа | [skuːl]
-teacher | учитель | [ˈtiːtʃə]
-student | студент | [ˈstjuːdənt]
-computer | компьютер | [kəmˈpjuːtə]
-phone | телефон | [fəʊn]
-city | город | [ˈsɪti]
-country | страна | [ˈkʌntri]
-family | семья | [ˈfæmɪli]
-morning | утро | [ˈmɔːnɪŋ]
-evening | вечер | [ˈiːvnɪŋ]
-night | ночь | [naɪt]
-day | день | [deɪ]
-work | работа | [wɜːk]
+apple | яблоко | [ˈæpl] | I eat an apple every day. | Я ем яблоко каждый день.
+book | книга | [bʊk] | This book is very interesting. | Эта книга очень интересная.
+cat | кот | [kæt] | My cat likes to sleep on the sofa. | Мой кот любит спать на диване.
+dog | собака | [dɒɡ] | The dog is playing in the garden. | Собака играет в саду.
+house | дом | [haʊs] | We live in a big house. | Мы живем в большом доме.
+water | вода | [ˈwɔːtə] | I drink water every morning. | Я пью воду каждое утро.
+friend | друг | [frend] | She is my best friend. | Она моя лучшая подруга.
+school | школа | [skuːl] | Children go to school every day. | Дети ходят в школу каждый день.
+teacher | учитель | [ˈtiːtʃə] | Our teacher is very kind and patient. | Наш учитель очень добрый и терпеливый.
+student | студент | [ˈstjuːdənt] | He is a good student. | Он хороший студент.
+computer | компьютер | [kəmˈpjuːtə] | I work on my computer all day. | Я работаю на компьютере весь день.
+phone | телефон | [fəʊn] | Can you answer the phone, please? | Можешь ответить на телефон, пожалуйста?
+city | город | [ˈsɪti] | London is a beautiful city. | Лондон - красивый город.
+country | страна | [ˈkʌntri] | France is a wonderful country. | Франция - замечательная страна.
+family | семья | [ˈfæmɪli] | I love my family very much. | Я очень люблю свою семью.
+morning | утро | [ˈmɔːnɪŋ] | Good morning! How are you today? | Доброе утро! Как дела сегодня?
+evening | вечер | [ˈiːvnɪŋ] | We go for a walk in the evening. | Мы гуляем вечером.
+night | ночь | [naɪt] | The stars shine bright at night. | Звезды ярко светят ночью.
+day | день | [deɪ] | Have a nice day! | Хорошего дня!
+work | работа | [wɜːk] | I go to work by bus. | Я езжу на работу на автобусе.
