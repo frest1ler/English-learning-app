@@ -1,1 +1,185 @@
-
+apple | яблоко | [ˈæpl] | I eat an apple every day. | Я ем яблоко каждый день.
+book | книга | [bʊk] | This book is very interesting. | Эта книга очень интересная.
+cat | кот | [kæt] | My cat likes to sleep on the sofa. | Мой кот любит спать на диване.
+dog | собака | [dɒɡ] | The dog is playing in the garden. | Собака играет в саду.
+house | дом | [haʊs] | We live in a big house. | Мы живем в большом доме.
+water | вода | [ˈwɔːtə] | I drink water every morning. | Я пью воду каждое утро.
+friend | друг | [frend] | She is my best friend. | Она моя лучшая подруга.
+school | школа | [skuːl] | Children go to school every day. | Дети ходят в школу каждый день.
+teacher | учитель | [ˈtiːtʃə] | Our teacher is very kind and patient. | Наш учитель очень добрый и терпеливый.
+student | студент | [ˈstjuːdənt] | He is a good student. | Он хороший студент.
+computer | компьютер | [kəmˈpjuːtə] | I work on my computer all day. | Я работаю на компьютере весь день.
+phone | телефон | [fəʊn] | Can you answer the phone, please? | Можешь ответить на телефон, пожалуйста?
+city | город | [ˈsɪti] | London is a beautiful city. | Лондон - красивый город.
+country | страна | [ˈkʌntri] | France is a wonderful country. | Франция - замечательная страна.
+family | семья | [ˈfæmɪli] | I love my family very much. | Я очень люблю свою семью.
+morning | утро | [ˈmɔːnɪŋ] | Good morning! How are you today? | Доброе утро! Как дела сегодня?
+evening | вечер | [ˈiːvnɪŋ] | We go for a walk in the evening. | Мы гуляем вечером.
+night | ночь | [naɪt] | The stars shine bright at night. | Звезды ярко светят ночью.
+day | день | [deɪ] | Have a nice day! | Хорошего дня!
+work | работа | [wɜːk] | I go to work by bus. | Я езжу на работу на автобусе.
+value | ценность | [ˈvæljuː] | We should appreciate the value of time. | Мы должны ценить ценность времени.
+appreciate | ценить | [əˈpriːʃieɪt] | I really appreciate your help. | Я очень ценю вашу помощь.
+argue | спорить | [ˈɑːɡjuː] | They often argue about politics. | Они часто спорят о политике.
+confirm | подтверждать | [kənˈfɜːrm] | Please confirm your attendance by Friday. | Пожалуйста, подтвердите ваше присутствие до пятницы.
+core | ядро, основной | [kɔːr] | The core issue is lack of funding. | Основная проблема - это нехватка финансирования.
+involve | вовлекать, включать | [ɪnˈvɒlv] | The job involves a lot of travel. | Эта работа включает много поездок.
+gender | пол, гендер | [ˈdʒendər] | The study examined gender differences. | Исследование изучало гендерные различия.
+prioritize | расставлять приоритеты | [praɪˈɒrətaɪz] | You need to prioritize your tasks. | Тебе нужно расставить приоритеты в задачах.
+worth | стоящий, заслуживающий | [wɜːrθ] | This book is worth reading. | Эта книга стоит того, чтобы её прочитать.
+differ | различаться | [ˈdɪfər] | Our opinions differ on this matter. | Наши мнения различаются по этому вопросу.
+avoidance | избегание | [əˈvɔɪdəns] | His avoidance of conflict causes problems. | Его избегание конфликтов вызывает проблемы.
+consider | рассматривать | [kənˈsɪdər] | We need to consider all options. | Нам нужно рассмотреть все варианты.
+contribution | вклад | [ˌkɒntrɪˈbjuːʃən] | Her contribution to the project was significant. | Её вклад в проект был значительным.
+initiative | инициатива | [ɪˈnɪʃətɪv] | She took the initiative to organize the meeting. | Она проявила инициативу и организовала встречу.
+perceive | воспринимать | [pərˈsiːv] | People perceive reality differently. | Люди воспринимают реальность по-разному.
+rarely | редко | [ˈreəli] | I rarely eat fast food. | Я редко ем фастфуд.
+tend to | иметь тенденцию | [tend tuː] | People tend to forget unpleasant memories. | Люди имеют тенденцию забывать неприятные воспоминания.
+essential | важный, необходимый | [ɪˈsenʃl] | Water is essential for life. | Вода необходима для жизни.
+maintain | поддерживать | [meɪnˈteɪn] | It's important to maintain healthy relationships. | Важно поддерживать здоровые отношения.
+significant | значимый | [sɪɡˈnɪfɪkənt] | This discovery is significant for science. | Это открытие значимо для науки.
+provide | обеспечивать | [prəˈvaɪd] | The company provides health insurance. | Компания обеспечивает медицинскую страховку.
+common | общий, распространённый | [ˈkɒmən] | This is a common mistake among students. | Это распространённая ошибка среди студентов.
+assume | предполагать | [əˈsjuːm] | I assume you're familiar with the basics. | Я предполагаю, что вы знакомы с основами.
+conduct | проводить | [kənˈdʌkt] | They will conduct a survey next week. | Они проведут опрос на следующей неделе.
+develop | разрабатывать, развивать | [dɪˈveləp] | We need to develop a new strategy. | Нам нужно разработать новую стратегию.
+establish | устанавливать | [ɪˈstæblɪʃ] | The company was established in 1995. | Компания была учреждена в 1995 году.
+therefore | следовательно | [ˈðeəfɔːr] | He was tired; therefore, he went to bed early. | Он устал, следовательно, лёг спать рано.
+impact | влияние / влиять | [ˈɪmpækt] | Social media has a big impact on young people. | Социальные медиа оказывают большое влияние на молодёжь.
+interact | взаимодействовать | [ˌɪntərˈækt] | Children learn by interacting with their environment. | Дети учатся, взаимодействуя с окружающей средой.
+outcome | исход, результат | [ˈaʊtkʌm] | The outcome of the negotiations was positive. | Исход переговоров был положительным.
+belong to | принадлежать | [bɪˈlɒŋ tuː] | This book belongs to me. | Эта книга принадлежит мне.
+relevant | актуальный | [ˈreləvənt] | Make sure your experience is relevant to the job. | Убедитесь, что ваш опыт актуален для этой работы.
+hierarchy | иерархия | [ˈhaɪərɑːki] | The corporate hierarchy can be complex. | Корпоративная иерархия может быть сложной.
+relatively | относительно | [ˈrelətɪvli] | The task was relatively easy. | Задача была относительно лёгкой.
+emerge | появляться | [iˈmɜːrdʒ] | New evidence emerged during the investigation. | Новые доказательства появились во время расследования.
+exceed | превышать | [ɪkˈsiːd] | The costs exceeded our budget. | Расходы превысили наш бюджет.
+affect | воздействовать | [əˈfekt] | The weather can affect your mood. | Погода может воздействовать на ваше настроение.
+huge | огромный | [hjuːdʒ] | They made a huge profit. | Они получили огромную прибыль.
+sufficient | достаточный | [səˈfɪʃənt] | We have sufficient resources to complete the project. | У нас достаточно ресурсов для завершения проекта.
+sustainable | устойчивый | [səˈsteɪnəbl] | We need to find sustainable energy sources. | Нам нужно найти устойчивые источники энергии.
+average | средний | [ˈævərɪdʒ] | The average temperature in July is 25°C. | Средняя температура в июле 25°C.
+aware | осведомлённый | [əˈweər] | Are you aware of the risks? | Вы осведомлены о рисках?
+expert | эксперт, знаток | [ˈekspɜːrt] | She is an expert in her field. | Она эксперт в своей области.
+component | компонент | [kəmˈpəʊnənt] | Each component is carefully tested. | Каждый компонент тщательно тестируется.
+consequence | следствие, результат | [ˈkɒnsɪkwəns] | His actions had serious consequences. | Его действия имели серьёзные последствия.
+despite | несмотря на | [dɪˈspaɪt] | Despite the rain, we went for a walk. | Несмотря на дождь, мы пошли на прогулку.
+diversity | разнообразие | [daɪˈvɜːsəti] | Cultural diversity enriches society. | Культурное разнообразие обогащает общество.
+achieve | достигать | [əˈtʃiːv] | With hard work, you can achieve your goals. | Усердно работая, вы можете достичь своих целей.
+reach | достигать | [riːtʃ] | We hope to reach an agreement soon. | Мы надеемся достичь соглашения в ближайшее время.
+evidence | доказательства | [ˈevɪdəns] | There is no evidence to support this claim. | Нет доказательств, подтверждающих это утверждение.
+occur | происходить | [əˈkɜːr] | The accident occurred at midnight. | Несчастный случай произошёл в полночь.
+species | вид | [ˈspiːʃiːz] | This species is endangered. | Этот вид находится под угрозой исчезновения.
+virus | вирус | [ˈvaɪrəs] | The computer was infected with a virus. | Компьютер был заражён вирусом.
+anticipate | предвидеть | [ænˈtɪsɪpeɪt] | We didn't anticipate these problems. | Мы не предвидели этих проблем.
+comprehend | понимать | [ˌkɒmprɪˈhend] | It's difficult to comprehend such complex ideas. | Трудно понять такие сложные идеи.
+comprehensive | всесторонний | [ˌkɒmprɪˈhensɪv] | The report provides a comprehensive analysis. | Отчёт предоставляет всесторонний анализ.
+facilitate | способствовать | [fəˈsɪlɪteɪt] | The new software will facilitate communication. | Новое программное обеспечение будет способствовать общению.
+hazard | опасность | [ˈhæzərd] | Smoking is a health hazard. | Курение - это опасность для здоровья.
+threat | угроза | [θret] | Climate change poses a serious threat. | Изменение климата представляет серьёзную угрозу.
+urgent | срочный | [ˈɜːrdʒənt] | This matter requires urgent attention. | Этот вопрос требует срочного внимания.
+adjust | приспосабливаться | [əˈdʒʌst] | It takes time to adjust to a new culture. | Требуется время, чтобы приспособиться к новой культуре.
+capacity | способность, вместимость | [kəˈpæsəti] | The stadium has a capacity of 50,000 people. | Стадион имеет вместимость 50 000 человек.
+comprise | состоять из | [kəmˈpraɪz] | The team comprises experts from various fields. | Команда состоит из экспертов из различных областей.
+enable | давать возможность | [ɪˈneɪbl] | This tool enables faster data processing. | Этот инструмент даёт возможность более быстрой обработки данных.
+propose | предлагать | [prəˈpəʊz] | I propose we start the meeting now. | Я предлагаю начать встречу сейчас.
+survive | выживать | [sərˈvaɪv] | Plants need water to survive. | Растениям нужна вода, чтобы выжить.
+external | внешний | [ɪkˈstɜːrnl] | The external walls need painting. | Внешние стены нуждаются в покраске.
+internal | внутренний | [ɪnˈtɜːrnl] | The company is conducting an internal investigation. | Компания проводит внутреннее расследование.
+capable | способный | [ˈkeɪpəbl] | She is capable of handling difficult situations. | Она способна справляться с трудными ситуациями.
+distinguish | различать | [dɪˈstɪŋɡwɪʃ] | It's important to distinguish between facts and opinions. | Важно различать факты и мнения.
+indicate | указывать | [ˈɪndɪkeɪt] | Research indicates that exercise improves mood. | Исследования указывают, что упражнения улучшают настроение.
+reveal | раскрывать | [rɪˈviːl] | The investigation revealed new facts. | Расследование раскрыло новые факты.
+boost | усиливать | [buːst] | The new campaign boosted sales. | Новая кампания усилила продажи.
+recall | вспоминать | [rɪˈkɔːl] | I can't recall his name. | Я не могу вспомнить его имя.
+retain | сохранять | [rɪˈteɪn] | It's important to retain important documents. | Важно сохранять важные документы.
+visual | визуальный | [ˈvɪʒuəl] | The presentation had strong visual appeal. | Презентация имела сильную визуальную привлекательность.
+target | цель, мишень | [ˈtɑːɡɪt] | The company has set a sales target for the year. | Компания установила цель по продажам на год.
+share | доля, делиться | [ʃeər] | Everyone should share their ideas during the brainstorming. | Все должны делиться своими идеями во время мозгового штурма.
+policy | политика | [ˈpɒləsi] | The company has a strict policy against harassment. | У компании строгая политика против домогательств.
+achievable | достижимый | [əˈtʃiːvəbl] | Make sure your goals are achievable. | Убедитесь, что ваши цели достижимы.
+scale | масштаб | [skeɪl] | The scale of the problem is enormous. | Масштаб проблемы огромен.
+substance | вещество | [ˈsʌbstəns] | This chemical substance is highly reactive. | Это химическое вещество высоко реактивно.
+survivor | выживший | [sərˈvaɪvər] | She is a survivor of that terrible accident. | Она - выжившая в том ужасном несчастном случае.
+vision | видение, зрение | [ˈvɪʒən] | The leader had a clear vision for the future. | У лидера было чёткое видение будущего.
+annually | ежегодно | [ˈænjuəli] | The conference is held annually. | Конференция проводится ежегодно.
+fatal | смертельный | [ˈfeɪtl] | The disease can be fatal if not treated. | Болезнь может быть смертельной, если её не лечить.
+disease | болезнь | [dɪˈziːz] | Heart disease is a major health problem. | Болезнь сердца - это серьёзная проблема здоровья.
+estimate | оценка, оценивать | [ˈestɪmeɪt] | The estimate for the repair work is $500. | Оценка ремонтных работ составляет 500 долларов.
+infect | заражать | [ɪnˈfekt] | The virus can infect people quickly. | Вирус может быстро заражать людей.
+infection | инфекция | [ɪnˈfekʃən] | He is being treated for a serious infection. | Его лечат от серьёзной инфекции.
+infectious | заразный | [ɪnˈfekʃəs] | Laughter is infectious. | Смех заразен.
+suspect | подозревать | [səˈspekt] | I suspect he is not telling the truth. | Я подозреваю, что он не говорит правду.
+suspicion | подозрение | [səˈspɪʃən] | I have a suspicion that something is wrong. | У меня есть подозрение, что что-то не так.
+suspicious | подозрительный | [səˈspɪʃəs] | The police found his behavior suspicious. | Полиция нашла его поведение подозрительным.
+transmit | передавать (болезнь, сигнал) | [trænsˈmɪt] | Mosquitoes can transmit diseases. | Комары могут передавать болезни.
+wildlife | дикая природа | [ˈwaɪldlaɪf] | We must protect wildlife. | Мы должны защищать дикую природу.
+boundary | граница | [ˈbaʊndri] | We need to set clear boundaries. | Нам нужно установить чёткие границы.
+bulk | основная часть | [bʌlk] | The bulk of the work is already done. | Основная часть работы уже сделана.
+exhaust | истощать | [ɪɡˈzɔːst] | The long journey exhausted us. | Долгое путешествие истощило нас.
+exhaustion | истощение | [ɪɡˈzɔːstʃən] | She suffered from complete exhaustion. | Она страдала от полного истощения.
+facilities | оборудование, сооружения | [fəˈsɪlɪtiz] | The hotel has excellent sports facilities. | В отеле есть превосходное спортивное оборудование.
+hazardous | опасный | [ˈhæzərdəs] | Handling chemicals can be hazardous. | Работа с химикатами может быть опасной.
+pose | представлять (опасность) | [pəʊz] | This situation poses a serious threat. | Эта ситуация представляет серьёзную угрозу.
+prompt | побуждать | [prɒmpt] | The news prompted immediate action. | Новость побудила к немедленным действиям.
+threaten | угрожать | [ˈθretn] | He threatened to resign. | Он угрожал уйти в отставку.
+urge | убеждать, побуждать | [ɜːrdʒ] | I urge you to reconsider your decision. | Я убеждаю вас пересмотреть ваше решение.
+witness | свидетель, быть свидетелем | [ˈwɪtnəs] | Did anyone witness the accident? | Кто-нибудь был свидетелем аварии?
+modest | скромный | [ˈmɒdɪst] | She is very modest about her achievements. | Она очень скромна в отношении своих достижений.
+proposal | предложение (идея) | [prəˈpəʊzl] | The committee rejected our proposal. | Комитет отклонил наше предложение.
+set | устанавливать, задавать | [set] | We need to set clear objectives. | Нам нужно установить чёткие цели.
+survival | выживание | [sərˈvaɪvl] | The survival of the species is at risk. | Выживание вида под угрозой.
+whereas | тогда как | [weərˈæz] | She loves classical music, whereas I prefer jazz. | Она любит классическую музыку, тогда как я предпочитаю джаз.
+empathize | сопереживать | [ˈempəθaɪz] | A good doctor should empathize with patients. | Хороший врач должен сопереживать пациентам.
+empathy | сочувствие | [ˈempəθi] | She has great empathy for others. | У неё большое сочувствие к другим.
+fall apart | развалиться | [fɔːl əˈpɑːrt] | The old house is falling apart. | Старый дом разваливается.
+in/with regard to | в отношении | [ɪn/wɪð rɪˈɡɑːrd tuː] | I'm writing with regard to your application. | Я пишу в отношении вашего заявления.
+leverage (n) | рычаг, средство влияния | [ˈliːvərɪdʒ] | We need to use our leverage in the negotiations. | Нам нужно использовать наше средство влияния в переговорах.
+leverage (v) | использовать | [ˈliːvərɪdʒ] | We can leverage our resources more effectively. | Мы можем использовать наши ресурсы более эффективно.
+regard | рассматривать, считать | [rɪˈɡɑːrd] | I regard him as my mentor. | Я считаю его своим наставником.
+relevant | уместный | [ˈreləvənt] | Your question is not relevant to our discussion. | Ваш вопрос не уместен для нашего обсуждения.
+capably | умело | [ˈkeɪpəbli] | She managed the project capably. | Она умело управляла проектом.
+capability | способность | [ˌkeɪpəˈbɪləti] | The team has the capability to complete this task. | У команды есть способность выполнить эту задачу.
+prior | предыдущий | [ˈpraɪər] | Prior experience is required for this job. | Для этой работы требуется предыдущий опыт.
+bear | нести, иметь | [beər] | This decision bears serious consequences. | Это решение имеет серьёзные последствия.
+deprive | лишать | [dɪˈpraɪv] | No one should be deprived of basic rights. | Никто не должен быть лишён основных прав.
+deprived | лишённый | [dɪˈpraɪvd] | He grew up in a deprived area. | Он вырос в лишённом благ районе.
+deprivation | лишение | [ˌdeprɪˈveɪʃən] | Sleep deprivation can affect your health. | Лишение сна может повлиять на ваше здоровье.
+encode | кодировать | [ɪnˈkəʊd] | Our brain encodes memories during sleep. | Наш мозг кодирует воспоминания во время сна.
+memorize | запоминать | [ˈmeməraɪz] | Students need to memorize these formulas. | Студентам нужно запоминать эти формулы.
+memorable | запоминающийся | [ˈmemərəbl] | It was a memorable experience. | Это был запоминающийся опыт.
+remind | напоминать | [rɪˈmaɪnd] | Please remind me about the meeting tomorrow. | Пожалуйста, напомните мне о встрече завтра.
+retrieve | извлекать, восстанавливать | [rɪˈtriːv] | I need to retrieve the data from the backup. | Мне нужно извлечь данные из резервной копии.
+visualize | визуализировать | [ˈvɪʒuəlaɪz] | Try to visualize your success. | Попробуйте визуализировать ваш успех.
+value (v) | ценить | [ˈvæljuː] | I value your opinion. | Я ценю ваше мнение.
+argument | аргумент | [ˈɑːɡjumənt] | He presented a strong argument. | Он представил сильный аргумент.
+priority | приоритет | [praɪˈɒrəti] | Safety is our top priority. | Безопасность - наш главный приоритет.
+consideration | рассмотрение | [kənˌsɪdəˈreɪʃən] | Your proposal is under consideration. | Ваше предложение на рассмотрении.
+difference | различие | [ˈdɪfrəns] | There is a big difference between these two approaches. | Есть большое различие между этими двумя подходами.
+indifferent | безразличный | [ɪnˈdɪfrənt] | He seemed indifferent to the news. | Он казался безразличным к новости.
+avoid | избегать | [əˈvɔɪd] | You should avoid eating too much sugar. | Тебе следует избегать употребления слишком большого количества сахара.
+(un)avoidable | (не)избежный | [ʌnəˈvɔɪdəbl] | Some mistakes are unavoidable. | Некоторые ошибки неизбежны.
+contribute | вносить вклад | [kənˈtrɪbjuːt] | Everyone can contribute to the discussion. | Каждый может внести вклад в обсуждение.
+different | разный | [ˈdɪfrənt] | People have different learning styles. | У людей разные стили обучения.
+indifference | безразличие | [ɪnˈdɪfrəns] | His indifference to the problem was surprising. | Его безразличие к проблеме было удивительным.
+initiative | инициатива | [ɪˈnɪʃətɪv] | She showed great initiative in solving the problem. | Она проявила большую инициативу в решении проблемы.
+perception | восприятие | [pərˈsepʃən] | Perception of time varies from person to person. | Восприятие времени варьируется от человека к человеку.
+(im)perceptible | (не)уловимый | [ɪmpərˈseptəbl] | The change was almost imperceptible. | Изменение было почти неуловимым.
+meaningful | значимый | [ˈmiːnɪŋfl] | They had a meaningful conversation. | У них был значимый разговор.
+provide (smb with smth) | обеспечивать (кого-то чем-то) | [prəˈvaɪd] | The school provides students with textbooks. | Школа обеспечивает студентов учебниками.
+avoidable | избежный | [əˈvɔɪdəbl] | Many accidents are avoidable. | Многие несчастные случаи избежны.
+emission | выброс, выделение | [iˈmɪʃən] | Car emissions contribute to air pollution. | Выбросы автомобилей способствуют загрязнению воздуха.
+immensely | чрезвычайно, безмерно | [ɪˈmensli] | I enjoyed the concert immensely. | Мне чрезвычайно понравился концерт.
+diverse | разнообразный | [daɪˈvɜːrs] | We live in a diverse society. | Мы живём в разнообразном обществе.
+percentage | процент, доля | [pərˈsentɪdʒ] | What percentage of people voted? | Какой процент людей проголосовал?
+reliable | надёжный | [rɪˈlaɪəbl] | This car is very reliable. | Эта машина очень надёжная.
+reliability | надёжность | [rɪˌlaɪəˈbɪləti] | The reliability of the data is questionable. | Надёжность данных сомнительна.
+viral | вирусный | [ˈvaɪrəl] | The video went viral on social media. | Видео стало вирусным в социальных сетях.
+prompt | побуждать; быстрый | [prɒmpt] | Her question prompted a long discussion. | Её вопрос побудил к долгому обсуждению.
+result from | быть следствием | [rɪˈzʌlt frɒm] | Health problems can result from poor nutrition. | Проблемы со здоровьем могут быть следствием плохого питания.
+resentment | негодование, обида | [rɪˈzentmənt] | He felt resentment towards his boss. | Он чувствовал негодование по отношению к своему боссу.
+resilient | устойчивый | [rɪˈzɪliənt] | Children are often very resilient. | Дети часто очень устойчивые.
+distinguish | различать | [dɪˈstɪŋɡwɪʃ] | It's hard to distinguish between the twins. | Трудно различать близнецов.
+remind | напоминать | [rɪˈmaɪnd] | Can you remind me to call my mom? | Ты можешь напомнить мне позвонить маме?
+retain | сохранять | [rɪˈteɪn] | It's important to retain important information. | Важно сохранять важную информацию.
+retrieve | извлекать, восстанавливать | [rɪˈtriːv] | I managed to retrieve the deleted files. | Мне удалось восстановить удалённые файлы.
