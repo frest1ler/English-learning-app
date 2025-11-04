@@ -96,3 +96,186 @@
 Неправильные глаголы: 3-я форма (been, seen, done)
 
 Слова-маркеры: already, just, yet, ever, never, for, since, recently
+
+###Gerund и Infinitive
+1. Когда использовать Gerund (-ing)
+После определенных глаголов enjoy, dislike, mind, suggest, recommend, avoid, admit, consider, imagine, finish, practise, give up, risk, miss.
+
+Example I enjoy reading books.
+
+После предлогов (before, after, without, of, about, etc.)
+
+Example He left without saying goodbye.
+
+В качестве подлежащего или дополнения
+
+Example Swimming is good for health.
+
+После выражений can't stand, look forward to, it's no use, it's worth.
+
+2. Когда использовать Infinitive (to do)
+После определенных глаголов want, decide, hope, plan, promise, agree, offer, refuse, learn, afford, deserve, seem, appear, pretend.
+
+Example She decided to leave early.
+
+После прилагательных
+
+Example It's important to study regularly.
+
+Для выражения цели
+
+Example He works hard to earn money.
+
+3. Глаголы, меняющие значение
+Remember  Forget
+
++ -ing ПомнитьЗабыть о действии в прошлом.
+ I remember meeting him. (Я помню, как встречал его.)
+
++ to do ПомнитьЗабыть сделать что-то (обязанность).
+ Remember to call me! (Не забудь позвонить мне!)
+
+Try
+
++ -ing Попробовать как метод.
+ Try restarting your computer. (Попробуй перезагрузить компьютер.)
+
++ to do Пытаться, прилагать усилия.
+ Try to be on time. (Старайся быть вовремя.)
+
+Stop
+
++ -ing Перестать делать что-то.
+ Stop talking! (Прекрати разговаривать!)
+
++ to do Остановиться, чтобы сделать что-то другое.
+ He stopped to rest. (Он остановился, чтобы отдохнуть.)
+
+Regret
+
++ -ing Сожалеть о сделанном в прошлом.
+ I regret telling him the secret. (Я сожалею, что рассказал ему секрет.)
+
++ to do С сожалением сообщать (обычно в настоящем).
+ We regret to inform you that your application was rejected. (Мы с сожалением сообщаем, что ваша заявка отклонена.)
+
+###Conditional
+Zero Conditional (Нулевой тип)
+Использование: Для описания общеизвестных фактов, научных истин, законов природы и ситуаций, которые всегда истинны.
+
+Структура: If + Present Simple, Present Simple
+
+Примеры:
+
+If you heat ice, it melts. (Если ты нагреваешь лёд, он тает.)
+
+If you mix blue and yellow, you get green. (Если смешать синий и жёлтый, получится зелёный.)
+
+First Conditional (Первый тип)
+Использование: Для описания реальных ситуаций в будущем или последствий в будущем, которые вероятны при выполнении условия.
+
+Структура: If + Present Simple, will + infinitive (или другие модальные глаголы: can, may, should, imperative)
+
+Примеры:
+
+If it rains tomorrow, we will cancel the picnic. (Если завтра пойдет дождь, мы отменим пикник.)
+
+If you study hard, you will pass the exam. (Если ты будешь усердно учиться, ты сдашь экзамен.)
+
+If you are tired, you can go to bed. (Если ты устал, ты можешь лечь спать.)
+
+Second Conditional (Второй тип)
+Использование: Для описания гипотетических, маловероятных или нереальных ситуаций в настоящем или будущем. Также для советов.
+
+Структура: If + Past Simple, would/could/might + infinitive
+
+Обратите внимание: После if используется Past Simple, но речь идет о настоящем или будущем.
+
+Примеры:
+
+If I won the lottery, I would travel around the world. (Если бы я выиграл в лотерею, я бы путешествовал по всему миру. — ситуация маловероятная)
+
+If I were you, I would apologize. (На твоем месте я бы извинился. — совет)
+
+Важно: С глаголом to be часто (особенно в формальном языке) используют were для всех лиц: If I were..., If he were....
+
+Third Conditional (Третий тип)
+Использование: Для выражения сожаления или критики о ситуациях в ПРОШЛОМ, которые уже нельзя изменить. Мы говорим о том, что могло бы быть, но не случилось.
+
+Структура: If + Past Perfect, would/could/might + have + V3 (Past Participle)
+
+Примеры:
+
+If I had studied harder, I would have passed the exam. (Если бы я учился усерднее, я бы сдал тот экзамен. — но я его не сдал, и это в прошлом)
+
+She wouldn't have missed the bus if she had left on time. (Она не опоздала бы на автобус, если бы вышла вовремя.)
+
+###Modals for deduction
+Deduction = логическое предположение (догадка), основанное на фактах.
+
+------------------------------------------------------------
+PRESENT DEDUCTION (догадки о настоящем)
+------------------------------------------------------------
+
+1. must + base verb
+   Уверенность, что что-то верно (90–100%)
+   Пример: He must be tired. (Он, должно быть, устал.)
+
+2. may / might / could + base verb
+   Возможно, что что-то верно (примерно 50%)
+   Пример: She may be at home. (Возможно, она дома.)
+
+3. can’t + base verb
+   Уверенность, что что-то неверно (0%)
+   Пример: He can’t be serious. (Не может быть, что он серьёзен.)
+
+------------------------------------------------------------
+PAST DEDUCTION (догадки о прошлом)
+------------------------------------------------------------
+
+1. must have + V3 (Past Participle)
+   Уверенность, что что-то произошло.
+   Пример: He must have forgotten the meeting.
+   (Должно быть, он забыл о встрече.)
+
+2. may / might / could have + V3
+   Возможно, что что-то произошло.
+   Пример: They might have gone out.
+   (Возможно, они вышли.)
+
+3. can’t / couldn’t have + V3
+   Уверенность, что что-то не произошло.
+   Пример: She can’t have been at the party.
+   (Не может быть, что она была на вечеринке.)
+
+------------------------------------------------------------
+УРОВЕНЬ УВЕРЕННОСТИ
+------------------------------------------------------------
+
+| Уровень уверенности | Настоящее           | Прошлое                    |
+|----------------------|--------------------|-----------------------------|
+| 100% уверены         | must be            | must have + V3             |
+| 50% уверены          | may / might be     | may / might have + V3      |
+| 0% уверены           | can’t be           | can’t have + V3            |
+
+------------------------------------------------------------
+ПРИМЕРЫ
+------------------------------------------------------------
+
+He must be at home.        - Наверняка он дома.
+He might be at home.       - Может быть, он дома.
+He can’t be at home.       - Он точно не дома.
+
+He must have been at home. - Наверняка он был дома.
+He might have been at home.- Возможно, он был дома.
+He can’t have been at home.- Не может быть, что он был дома.
+
+------------------------------------------------------------
+КРАТКО:
+------------------------------------------------------------
+
+must      → уверенность
+may/might → вероятность
+can’t     → невозможность
+
+------------------------------------------------------------

@@ -730,3 +730,333 @@ We ___ (move) beyond our initial disagreements | have moved | Прогресс, 
 She ___ (never encountered) such rudeness before | has never encountered | Опыт (никогда не сталкивалась)
 They ___ (achieve) everything they set out to do | have achieved | Достижение, актуальное в настоящем
 He ___ (work) tirelessly to support his family | has worked | Длительное действие, продолжающееся до настоящего момента
+
+### Gerund and Infinitive
+I enjoy ___ (walk) in the park during autumn when leaves change color | walking | После enjoy используется gerund
+She promised ___ (help) me with my research paper next weekend | to help | После promise используется infinitive
+They avoid ___ (eat) fast food because of health concerns | eating | После avoid используется gerund
+He decided ___ (study) abroad to experience different cultures | to study | После decide используется infinitive
+We finished ___ (prepare) the presentation just before the meeting started | preparing | После finish используется gerund
+I hope ___ (visit) Japan during cherry blossom season next year | to visit | После hope используется infinitive
+She admitted ___ (make) a mistake in the financial calculations | making | После admit используется gerund
+They can't afford ___ (buy) a house in this expensive neighborhood | to buy | После afford используется infinitive
+He suggested ___ (go) hiking in the mountains this weekend | going | После suggest используется gerund
+We agreed ___ (meet) at the new café downtown tomorrow | to meet | После agree используется infinitive
+I miss ___ (spend) summers at my grandparents' countryside house | spending | После miss используется gerund
+She plans ___ (start) her own business after graduation | to start | После plan используется infinitive
+They practice ___ (speak) English every day to improve fluency | speaking | После practice используется gerund
+He offered ___ (drive) us to the airport early in the morning | to drive | После offer используется infinitive
+We considered ___ (move) to a warmer climate for health reasons | moving | После consider используется gerund
+I want ___ (learn) how to play the piano before I turn thirty | to learn | После want используется infinitive
+She quit ___ (smoke) three years ago and feels much healthier now | smoking | После quit используется gerund
+They deserve ___ (get) a promotion for their hard work | to get | После deserve используется infinitive
+He delayed ___ (submit) the application until he had more experience | submitting | После delay используется gerund
+We managed ___ (solve) the complex problem before the deadline | to solve | После manage используется infinitive
+I recommend ___ (read) that novel if you enjoy historical fiction | reading | После recommend используется gerund
+She threatened ___ (resign) if working conditions didn't improve | to resign | После threaten используется infinitive
+They appreciate ___ (receive) feedback on their performance | receiving | После appreciate используется gerund
+He chose ___ (specialize) in marine biology rather than genetics | to specialize | После choose используется infinitive
+We discussed ___ (renovate) the old building to preserve its history | renovating | После discuss используется gerund
+I expect ___ (complete) the project by the end of this month | to complete | После expect используется infinitive
+She mentioned ___ (see) your exhibition at the art gallery last week | seeing | После mention используется gerund
+They intend ___ (expand) their business into European markets | to expand | После intend используется infinitive
+He recalled ___ (visit) this place with his family as a child | visiting | После recall используется gerund
+We prepared ___ (present) our findings at the international conference | to present | После prepare используется infinitive
+I dislike ___ (wait) in long queues at government offices | waiting | После dislike используется gerund
+She attempted ___ (explain) the complicated theory to her students | to explain | После attempt используется infinitive
+They risked ___ (lose) everything by investing in that startup | losing | После risk используется gerund
+He learned ___ (speak) French while living in Paris for two years | to speak | После learn используется infinitive
+We appreciated ___ (have) this opportunity to work with experts | having | После appreciate используется gerund
+I need ___ (finish) this report before the meeting starts | to finish | После need используется infinitive
+She denied ___ (know) anything about the missing documents | knowing | После deny используется gerund
+They hesitated ___ (ask) difficult questions during the interview | to ask | После hesitate используется infinitive
+He mentioned ___ (meet) the famous author at a literary festival | meeting | После mention используется gerund
+We decided ___ (postpone) the trip until weather conditions improve | to postpone | После decide используется infinitive
+I love ___ (watch) the sunset over the ocean from this cliff | watching | После love используется gerund
+She offered ___ (teach) me how to play chess on weekends | to teach | После offer используется infinitive
+They avoided ___ (discuss) sensitive topics during the negotiation | discussing | После avoid используется gerund
+He pretended ___ (understand) the complicated instructions | to understand | После pretend используется infinitive
+We enjoyed ___ (listen) to classical music while working | listening | После enjoy используется gerund
+I asked ___ (speak) with the manager about the service quality | to speak | После ask используется infinitive
+She remembered ___ (lock) the door before leaving the house | locking | После remember + gerund = предшествующее действие
+They forgot ___ (bring) the important documents to the meeting | to bring | После forget + infinitive = незавершенное действие
+He stopped ___ (smoke) when he learned about health risks | smoking | После stop + gerund = прекратить действие
+We continued ___ (work) despite the difficult circumstances | working | После continue используется gerund
+I began ___ (study) Chinese when I was in university | studying/to study | После begin можно и gerund и infinitive
+She prefers ___ (travel) by train rather than by plane | traveling | После prefer используется gerund
+They hate ___ (wake) up early on cold winter mornings | waking | После hate используется gerund
+He deserves ___ (be) recognized for his charitable work | to be | После deserve используется infinitive
+We started ___ (learn) about artificial intelligence last year | learning/to learn | После start можно и gerund и infinitive
+I like ___ (read) scientific journals to stay updated | reading | После like используется gerund
+She attempted ___ (solve) the mathematical problem for hours | to solve | После attempt используется infinitive
+They admitted ___ (make) errors in the initial calculations | making | После admit используется gerund
+He offered ___ (help) with the community clean-up project | to help | После offer используется infinitive
+We finished ___ (compile) the data analysis this morning | compiling | После finish используется gerund
+I hope ___ (achieve) my career goals within five years | to achieve | После hope используется infinitive
+She avoided ___ (answer) direct questions about the incident | answering | После avoid используется gerund
+They decided ___ (invest) in renewable energy sources | to invest | После decide используется infinitive
+He recommended ___ (visit) the new museum exhibition | visiting | После recommend используется gerund
+We planned ___ (celebrate) our anniversary at the seaside | to celebrate | После plan используется infinitive
+I enjoy ___ (cook) traditional dishes from different countries | cooking | После enjoy используется gerund
+She promised ___ (return) the books to the library tomorrow | to return | После promise используется infinitive
+They practice ___ (play) musical instruments every evening | playing | После practice используется gerund
+He refused ___ (participate) in the controversial study | to participate | После refuse используется infinitive
+We considered ___ (adopt) a pet from the animal shelter | adopting | После consider используется gerund
+I want ___ (improve) my public speaking skills this year | to improve | После want используется infinitive
+She quit ___ (drink) coffee after experiencing health issues | drinking | После quit используется gerund
+They managed ___ (complete) the project ahead of schedule | to complete | После manage используется infinitive
+He delayed ___ (respond) to the job offer for two weeks | responding | После delay используется gerund
+We agreed ___ (cooperate) on the environmental initiative | to cooperate | После agree используется infinitive
+I miss ___ (swim) in the lake near my childhood home | swimming | После miss используется gerund
+She intends ___ (pursue) a master's degree in neuroscience | to pursue | После intend используется infinitive
+They appreciate ___ (receive) constructive criticism | receiving | После appreciate используется gerund
+He chose ___ (volunteer) at the local hospital on weekends | to volunteer | После choose используется infinitive
+We discussed ___ (implement) new safety protocols | implementing | После discuss используется gerund
+I expect ___ (hear) back from the university soon | to hear | После expect используется infinitive
+She mentioned ___ (attend) the conference on climate change | attending | После mention используется gerund
+They threatened ___ (cancel) the contract due to delays | to cancel | После threaten используется infinitive
+He recalled ___ (study) at this university twenty years ago | studying | После recall используется gerund
+We prepared ___ (launch) the new product next month | to launch | После prepare используется infinitive
+I dislike ___ (commute) during rush hour traffic | commuting | После dislike используется gerund
+She attempted ___ (break) the world record in swimming | to break | После attempt используется infinitive
+They risked ___ (invest) their savings in the stock market | investing | После risk используется gerund
+He learned ___ (program) computers during his teenage years | to program | После learn используется infinitive
+We appreciated ___ (have) flexible working hours | having | После appreciate используется gerund
+I need ___ (consult) with experts before making decisions | to consult | После need используется infinitive
+She denied ___ (receive) the important email message | receiving | После deny используется gerund
+They hesitated ___ (express) their true opinions publicly | to express | После hesitate используется infinitive
+He mentioned ___ (read) the latest research on the topic | reading | После mention используется gerund
+We decided ___ (expand) our operations to Asian markets | to expand | После decide используется infinitive
+I love ___ (explore) ancient ruins during my travels | exploring | После love используется gerund
+She offered ___ (mentor) young professionals in our industry | to mentor | После offer используется infinitive
+They avoided ___ (confront) the issue directly | confronting | После avoid используется gerund
+He pretended ___ (enjoy) the modern art exhibition | to enjoy | После pretend используется infinitive
+We enjoyed ___ (participate) in the cultural festival | participating | После enjoy используется gerund
+I asked ___ (transfer) to the department with more challenges | to transfer | После ask используется infinitive
+She remembered ___ (meet) the famous scientist at a conference | meeting | После remember + gerund = предшествующее действие
+They forgot ___ (submit) the application before the deadline | to submit | После forget + infinitive = незавершенное действие
+He stopped ___ (work) at the company after fifteen years | working | После stop + gerund = прекратить действие
+We continued ___ (research) alternative energy solutions | researching | После continue используется gerund
+
+### Conditional Sentences
+If I ___ (have) more free time, I ___ (learn) to speak Japanese fluently | had, would learn | Second conditional - unreal present
+Unless she ___ (study) harder, she ___ (not pass) the final examination | studies, won't pass | First conditional - real future
+If they ___ (invest) in that company last year, they ___ (be) rich now | had invested, would be | Mixed conditional - past action with present result
+When water ___ (reach) 100 degrees Celsius, it ___ (boil) | reaches, boils | Zero conditional - scientific fact
+If I ___ (be) you, I ___ (seriously consider) that job offer | were, would seriously consider | Second conditional - hypothetical situation
+Unless we ___ (leave) now, we ___ (miss) the beginning of the performance | leave, will miss | First conditional - real future
+If he ___ (take) his medicine regularly, he ___ (not be) in hospital now | had taken, wouldn't be | Mixed conditional - past action with present consequence
+If you ___ (heat) ice, it ___ (turn) into water | heat, turns | Zero conditional - natural law
+I ___ (call) you if I ___ (know) you were in town | would have called, had known | Third conditional - unreal past
+When spring ___ (come), the days ___ (become) noticeably longer | comes, become | Zero conditional - general truth
+If she ___ (speak) better English, she ___ (get) a higher position | spoke, could get | Second conditional - unreal present
+We ___ (go) for a picnic tomorrow unless it ___ (rain) heavily | will go, rains | First conditional - real future
+If I ___ (check) the weather forecast, I ___ (not go) hiking | had checked, wouldn't have gone | Third conditional - unreal past
+If you ___ (mix) blue and yellow paint, you ___ (get) green | mix, get | Zero conditional - scientific fact
+He ___ (graduate) with honors if he ___ (attend) classes regularly | would have graduated, had attended | Third conditional - unreal past
+If I ___ (have) enough money, I ___ (travel) around the world for a year | had, would travel | Second conditional - unreal present
+When you ___ (press) this button, the machine ___ (start) automatically | press, starts | Zero conditional - technical instruction
+Unless he ___ (apologize) sincerely, she ___ (not forgive) him | apologizes, won't forgive | First conditional - real future
+If we ___ (book) tickets in advance, we ___ (save) money | had booked, would have saved | Third conditional - unreal past
+If I ___ (be) the president, I ___ (focus) on environmental issues | were, would focus | Second conditional - hypothetical situation
+If you ___ (freeze) water, it ___ (expand) and ___ (become) ice | freeze, expands, becomes | Zero conditional - scientific fact
+Unless they ___ (complete) the project today, they ___ (miss) the deadline | complete, will miss | First conditional - real future
+If she ___ (accept) that job offer, she ___ (live) in Paris now | had accepted, would be living | Mixed conditional - past action with present result
+When people ___ (exercise) regularly, they generally ___ (feel) more energetic | exercise, feel | Zero conditional - general truth
+If we ___ (know) about the traffic jam, we ___ (take) another route | had known, would have taken | Third conditional - unreal past
+Unless I ___ (receive) positive feedback, I ___ (not continue) this research | receive, won't continue | First conditional - real future
+If he ___ (listen) to my advice, he ___ (not be) in this difficult situation | had listened, wouldn't be | Mixed conditional - past action with present consequence
+If you ___ (expose) plants to sunlight, they ___ (perform) photosynthesis | expose, perform | Zero conditional - biological process
+She ___ (become) a doctor if she ___ (finish) medical school | would have become, had finished | Third conditional - unreal past
+When temperatures ___ (drop) below zero, water ___ (freeze) | drop, freezes | Zero conditional - natural phenomenon
+If I ___ (have) her phone number, I ___ (invite) her to the conference | had, would invite | Second conditional - unreal present
+Unless the weather ___ (improve), we ___ (cancel) the outdoor ceremony | improves, will cancel | First conditional - real future
+If they ___ (develop) that software earlier, they ___ (dominate) the market now | had developed, would dominate | Mixed conditional - past action with present result
+If metal ___ (get) hot, it typically ___ (expand) | gets, expands | Zero conditional - physical property
+We ___ (prevent) the accident if we ___ (install) safety equipment | could have prevented, had installed | Third conditional - unreal past
+When you ___ (add) salt to water, its boiling point ___ (increase) | add, increases | Zero conditional - chemical property
+If she ___ (practice) more often, she ___ (play) the violin beautifully | practiced, would play | Second conditional - unreal present
+Unless the company ___ (increase) salaries, many employees ___ (leave) | increases, will leave | First conditional - real future
+If I ___ (invest) in Bitcoin in 2010, I ___ (be) a millionaire today | had invested, would be | Mixed conditional - past action with present result
+If you ___ (combine) hydrogen and oxygen, you ___ (get) water | combine, get | Zero conditional - chemical reaction
+He ___ (win) the competition if he ___ (train) more seriously | would have won, had trained | Third conditional - unreal past
+When clouds ___ (become) saturated with water vapor, it ___ (rain) | become, rains | Zero conditional - meteorological fact
+If we ___ (have) better equipment, we ___ (complete) the experiment | had, could complete | Second conditional - unreal present
+Unless she ___ (submit) the application today, she ___ (miss) the opportunity | submits, will miss | First conditional - real future
+If they ___ (conduct) proper research, they ___ (not have) these problems now | had conducted, wouldn't have | Mixed conditional - past action with present consequence
+If you ___ (drop) an object, it ___ (fall) due to gravity | drop, falls | Zero conditional - physical law
+I ___ (visit) you if I ___ (have) your new address | would have visited, had had | Third conditional - unreal past
+When the sun ___ (set), temperatures usually ___ (decrease) | sets, decrease | Zero conditional - natural pattern
+If he ___ (speak) Spanish fluently, he ___ (work) as an interpreter | spoke, could work | Second conditional - unreal present
+Unless we ___ (find) a solution quickly, the situation ___ (worsen) | find, will worsen | First conditional - real future
+If I ___ (study) architecture instead of business, I ___ (design) buildings now | had studied, would be designing | Mixed conditional - past action with present result
+If you ___ (heat) air, it ___ (rise) because it becomes less dense | heat, rises | Zero conditional - physical principle
+They ___ (avoid) the crisis if they ___ (listen) to warnings | could have avoided, had listened | Third conditional - unreal past
+When winter ___ (arrive), many birds ___ (migrate) to warmer regions | arrives, migrate | Zero conditional - biological behavior
+If we ___ (know) how difficult it would be, we ___ (choose) differently | had known, might have chosen | Third conditional - unreal past
+Unless he ___ (improve) his performance, he ___ (lose) the scholarship | improves, will lose | First conditional - real future
+If she ___ (accept) the promotion, she ___ (manage) the department now | had accepted, would be managing | Mixed conditional - past action with present result
+If you ___ (mix) an acid with a base, you ___ (get) a salt and water | mix, get | Zero conditional - chemical reaction
+We ___ (arrive) on time if our flight ___ (not be) delayed | would have arrived, hadn't been | Third conditional - unreal past
+When you ___ (apply) pressure to a wound, bleeding usually ___ (stop) | apply, stops | Zero conditional - medical fact
+If I ___ (have) more experience, I ___ (apply) for that position | had, would apply | Second conditional - unreal present
+Unless they ___ (reduce) prices, sales ___ (continue) to decline | reduce, will continue | First conditional - real future
+If we ___ (implement) the new system earlier, we ___ (be) more efficient now | had implemented, would be | Mixed conditional - past action with present result
+If you ___ (put) water in the freezer, it eventually ___ (turn) to ice | put, turns | Zero conditional - physical change
+She ___ (pass) the exam if she ___ (study) the right material | would have passed, had studied | Third conditional - unreal past
+When temperatures ___ (rise) in summer, ice cream sales ___ (increase) | rise, increase | Zero conditional - economic pattern
+If he ___ (have) better qualifications, he ___ (get) a higher salary | had, could get | Second conditional - unreal present
+Unless I ___ (receive) the documents today, I ___ (not process) your application | receive, can't process | First conditional - real future
+If they ___ (maintain) the equipment properly, it ___ (not be) broken now | had maintained, wouldn't be | Mixed conditional - past action with present consequence
+If you ___ (exert) force on an object, it ___ (accelerate) according to Newton's law | exert, accelerates | Zero conditional - physical law
+We ___ (succeed) if we ___ (have) more financial support | might have succeeded, had had | Third conditional - unreal past
+When you ___ (water) plants appropriately, they ___ (grow) healthier | water, grow | Zero conditional - botanical fact
+If she ___ (know) about the meeting, she ___ (attend) | had known, would have attended | Third conditional - unreal past
+Unless the team ___ (cooperate) effectively, the project ___ (fail) | cooperates, will fail | First conditional - real future
+If I ___ (choose) a different career path, I ___ (be) happier now | had chosen, might be | Mixed conditional - past action with present result
+If you ___ (connect) the wires correctly, the circuit ___ (complete) | connect, completes | Zero conditional - electrical principle
+He ___ (recognize) her if he ___ (see) her recent photo | would have recognized, had seen | Third conditional - unreal past
+When sea water ___ (evaporate), it ___ (leave) salt crystals behind | evaporates, leaves | Zero conditional - natural process
+If we ___ (have) access to the database, we ___ (verify) the information | had, could verify | Second conditional - unreal present
+Unless she ___ (confirm) her attendance, we ___ (not reserve) a seat | confirms, won't reserve | First conditional - real future
+If they ___ (follow) the safety protocols, the accident ___ (not happen) | had followed, wouldn't have happened | Third conditional - unreal past
+If you ___ (look) at the night sky in rural areas, you ___ (see) more stars | look, see | Zero conditional - astronomical observation
+I ___ (buy) the painting if I ___ (have) enough money | would have bought, had had | Third conditional - unreal past
+When companies ___ (invest) in employee training, productivity often ___ (improve) | invest, improves | Zero conditional - business principle
+If he ___ (speak) more clearly, everyone ___ (understand) him | spoke, would understand | Second conditional - unreal present
+Unless we ___ (address) this issue immediately, it ___ (become) critical | address, will become | First conditional - real future
+If I ___ (learn) to play an instrument as a child, I ___ (be) musical now | had learned, would be | Mixed conditional - past action with present result
+If you ___ (apply) heat to butter, it ___ (melt) quickly | apply, melts | Zero conditional - physical property
+They ___ (finish) earlier if they ___ (work) more efficiently | could have finished, had worked | Third conditional - unreal past
+When you ___ (exercise) regularly, your cardiovascular health ___ (improve) | exercise, improves | Zero conditional - health fact
+If we ___ (have) the necessary tools, we ___ (repair) it ourselves | had, could repair | Second conditional - unreal present
+Unless he ___ (provide) the required documents, his visa ___ (be) denied | provides, will be | First conditional - real future
+If she ___ (take) the earlier train, she ___ (not be) late | had taken, wouldn't have been | Third conditional - unreal past
+If you ___ (place) a magnet near iron, it ___ (attract) the metal | place, attracts | Zero conditional - magnetic property
+We ___ (celebrate) if our team ___ (win) the championship | would have celebrated, had won | Third conditional - unreal past
+When economic conditions ___ (improve), consumer confidence typically ___ (rise) | improve, rises | Zero conditional - economic trend
+If I ___ (have) better navigation skills, I ___ (not get) lost so often | had, wouldn't get | Second conditional - unreal present
+Unless they ___ (meet) the quality standards, the product ___ (be) rejected | meet, will be | First conditional - real future
+If we ___ (conduct) market research, we ___ (know) about the demand | had conducted, would have known | Third conditional - unreal past
+If you ___ (expose) photographic film to light, it ___ (become) unusable | expose, becomes | Zero conditional - photographic principle
+He ___ (accept) the offer if the terms ___ (be) more favorable | would have accepted, had been | Third conditional - unreal past
+When you ___ (add) yeast to dough, it ___ (make) the bread rise | add, makes | Zero conditional - baking process
+If she ___ (have) more confidence, she ___ (speak) in public | had, would speak | Second conditional - unreal present
+Unless I ___ (finish) this report tonight, I ___ (miss) the deadline | finish, will miss | First conditional - real future
+If they ___ (install) security cameras, the theft ___ (be) recorded | had installed, would have been | Third conditional - unreal past
+If you ___ (press) the brake pedal in a car, the vehicle ___ (slow) down | press, slows | Zero conditional - mechanical function
+We ___ (avoid) the mistake if we ___ (double-check) the data | could have avoided, had double-checked | Third conditional - unreal past
+When society ___ (value) education, literacy rates usually ___ (increase) | values, increase | Zero conditional - social pattern
+
+### Modals for Deduction
+She ___ (be) at home - all the lights are on in her apartment | must be | Present deduction - strong certainty based on evidence
+They ___ (not hear) the news yet, otherwise they would have called us | can't have heard | Past deduction - strong certainty something didn't happen
+He ___ (work) late again - his car is still in the office parking lot | must be working | Present continuous deduction - strong certainty
+The package ___ (arrive) by now - it was sent express delivery last week | should have arrived | Past deduction - expectation about the past
+She ___ (not tell) the truth - her story keeps changing | can't be telling | Present continuous deduction - strong certainty something isn't happening
+They ___ (forget) about our meeting - they're usually very punctual | must have forgotten | Past deduction - strong certainty about past action
+He ___ (sleep) - I've been calling him for ten minutes without answer | must be sleeping | Present continuous deduction - strong certainty
+The train ___ (arrive) by the time we get to the station | should have arrived | Past deduction - expectation about the past
+She ___ (not understand) the instructions - she's doing everything wrong | can't have understood | Past deduction - strong certainty about lack of understanding
+They ___ (have) financial problems - they've sold their expensive car | must be having | Present continuous deduction - strong certainty
+He ___ (receive) my email - I sent it to the wrong address by mistake | can't have received | Past deduction - strong certainty something didn't happen
+She ___ (feel) unwell - she's been in the bathroom for a long time | must be feeling | Present continuous deduction - strong certainty
+The documents ___ (be) on your desk - I put them there this morning | should be | Present deduction - expectation
+They ___ (not practice) enough - their performance was disappointing | can't have practiced | Past deduction - strong certainty about lack of action
+He ___ (wait) for us at the main entrance as we agreed | should be waiting | Present continuous deduction - expectation
+She ___ (not take) the job - she would have told me about it | can't have taken | Past deduction - strong certainty something didn't happen
+They ___ (discuss) the merger - I saw all the executives in the conference room | must be discussing | Present continuous deduction - strong certainty
+He ___ (complete) the report by yesterday's deadline | should have completed | Past deduction - expectation about the past
+She ___ (not know) about the surprise party - she seems completely normal | can't know | Present deduction - strong certainty about lack of knowledge
+They ___ (celebrate) their success - I can hear laughter from their office | must be celebrating | Present continuous deduction - strong certainty
+The solution ___ (be) correct - I've checked it three times already | must be | Present deduction - strong certainty based on verification
+He ___ (not see) the warning sign - otherwise he would have stopped | can't have seen | Past deduction - strong certainty something didn't happen
+She ___ (prepare) for her presentation - I saw her with many books | must be preparing | Present continuous deduction - strong certainty
+They ___ (arrive) at the hotel by now - their flight landed hours ago | should have arrived | Past deduction - expectation about the past
+He ___ (not tell) us everything - there are too many inconsistencies | can't be telling | Present continuous deduction - strong certainty something isn't happening
+We ___ (take) the wrong turn - this doesn't look familiar at all | must have taken | Past deduction - strong certainty about past action
+She ___ (rest) after her long journey - she looked very tired | must be resting | Present continuous deduction - strong certainty
+The results ___ (be) available online by this evening | should be | Present deduction - expectation
+He ___ (not read) the instructions carefully - he assembled it wrong | can't have read | Past deduction - strong certainty about lack of action
+They ___ (enjoy) the performance - everyone is applauding enthusiastically | must be enjoying | Present continuous deduction - strong certainty
+She ___ (not receive) our message - she hasn't responded to anything | can't have received | Past deduction - strong certainty something didn't happen
+He ___ (work) on the new project - I saw him with the design documents | must be working | Present continuous deduction - strong certainty
+The package ___ (be) delivered yesterday as promised | should have been | Past deduction - expectation about the past
+They ___ (not study) for the exam - they're failing all the practice tests | can't have studied | Past deduction - strong certainty about lack of action
+She ___ (wait) for the bus at the usual stop | should be waiting | Present continuous deduction - expectation
+He ___ (not attend) the meeting - I didn't see him there at all | can't have attended | Past deduction - strong certainty something didn't happen
+They ___ (plan) something special for her birthday | must be planning | Present continuous deduction - strong certainty
+The repairs ___ (be) finished by tomorrow morning | should be | Present deduction - expectation
+She ___ (not understand) the cultural references in that movie | can't have understood | Past deduction - strong certainty about lack of understanding
+He ___ (feel) nervous about his job interview today | must be feeling | Present continuous deduction - strong certainty
+They ___ (arrive) at the decision after careful consideration | must have arrived | Past deduction - strong certainty about past action
+She ___ (be) in a meeting - her assistant said she's unavailable | must be | Present deduction - strong certainty based on information
+He ___ (not check) his email recently - he missed important messages | can't have checked | Past deduction - strong certainty about lack of action
+They ___ (discuss) the contract terms right now | must be discussing | Present continuous deduction - strong certainty
+The flowers ___ (be) delivered by the florist this afternoon | should be | Present deduction - expectation
+She ___ (not practice) the piano piece enough for the recital | can't have practiced | Past deduction - strong certainty about lack of action
+He ___ (work) on his novel in the study | must be working | Present continuous deduction - strong certainty
+They ___ (complete) the construction by the original deadline | should have completed | Past deduction - expectation about the past
+She ___ (not know) about the changes to the schedule | can't know | Present deduction - strong certainty about lack of knowledge
+He ___ (prepare) for his upcoming trip to Asia | must be preparing | Present continuous deduction - strong certainty
+The team ___ (analyze) the data from the recent experiment | must be analyzing | Present continuous deduction - strong certainty
+She ___ (be) at the library - she told me she was going there | must be | Present deduction - strong certainty based on statement
+He ___ (not hear) the alarm this morning - he overslept | can't have heard | Past deduction - strong certainty something didn't happen
+They ___ (celebrate) their anniversary at their favorite restaurant | must be celebrating | Present continuous deduction - strong certainty
+The documents ___ (be) processed by the end of the day | should be | Present deduction - expectation
+She ___ (not review) the proposal thoroughly enough | can't have reviewed | Past deduction - strong certainty about lack of action
+He ___ (wait) for the test results anxiously | must be waiting | Present continuous deduction - strong certainty
+They ___ (arrive) at a solution during the brainstorming session | must have arrived | Past deduction - strong certainty about past action
+She ___ (be) in the garden - I can see her through the window | must be | Present deduction - strong certainty based on observation
+He ___ (not follow) the recipe correctly - the cake doesn't look right | can't have followed | Past deduction - strong certainty about lack of action
+They ___ (plan) their retirement for years now | must be planning | Present continuous deduction - strong certainty
+The shipment ___ (be) at the warehouse by now | should be | Present deduction - expectation
+She ___ (not consider) all the possible consequences | can't have considered | Past deduction - strong certainty about lack of action
+He ___ (work) on solving the technical issue | must be working | Present continuous deduction - strong certainty
+They ___ (finish) the annual report by last Friday | should have finished | Past deduction - expectation about the past
+She ___ (not know) how to operate this equipment properly | can't know | Present deduction - strong certainty about lack of knowledge
+He ___ (feel) proud of his team's accomplishment | must be feeling | Present continuous deduction - strong certainty
+They ___ (discuss) the budget allocation for next year | must be discussing | Present continuous deduction - strong certainty
+The students ___ (be) in the laboratory conducting experiments | must be | Present deduction - strong certainty based on schedule
+She ___ (not receive) proper training for this position | can't have received | Past deduction - strong certainty something didn't happen
+He ___ (prepare) his presentation for the conference | must be preparing | Present continuous deduction - strong certainty
+They ___ (arrive) at an agreement during the negotiations | must have arrived | Past deduction - strong certainty about past action
+She ___ (be) at the dentist - she had an appointment this morning | must be | Present deduction - strong certainty based on appointment
+He ___ (not read) the latest research papers on the subject | can't have read | Past deduction - strong certainty about lack of action
+They ___ (celebrate) the successful product launch | must be celebrating | Present continuous deduction - strong certainty
+The results ___ (be) ready for analysis by tomorrow | should be | Present deduction - expectation
+She ___ (not understand) the complexity of the situation | can't have understood | Past deduction - strong certainty about lack of understanding
+He ___ (work) on improving his language skills | must be working | Present continuous deduction - strong certainty
+They ___ (complete) the safety inspection by now | should have completed | Past deduction - expectation about the past
+She ___ (not know) about the emergency evacuation procedures | can't know | Present deduction - strong certainty about lack of knowledge
+He ___ (feel) optimistic about the company's future | must be feeling | Present continuous deduction - strong certainty
+They ___ (discuss) the merger details in the boardroom | must be discussing | Present continuous deduction - strong certainty
+The technicians ___ (be) in the server room fixing the network issue | must be | Present deduction - strong certainty based on situation
+She ___ (not attend) the mandatory training session | can't have attended | Past deduction - strong certainty something didn't happen
+He ___ (prepare) for his professional certification exam | must be preparing | Present continuous deduction - strong certainty
+They ___ (reach) their sales target for this quarter | must have reached | Past deduction - strong certainty about past action
+She ___ (be) at the client's office for the meeting | must be | Present deduction - strong certainty based on schedule
+He ___ (not consider) all the available options | can't have considered | Past deduction - strong certainty about lack of action
+They ___ (plan) the marketing campaign for the new product | must be planning | Present continuous deduction - strong certainty
+The report ___ (be) on the manager's desk by now | should be | Present deduction - expectation
+She ___ (not review) the contract terms carefully enough | can't have reviewed | Past deduction - strong certainty about lack of action
+He ___ (work) on developing the new software feature | must be working | Present continuous deduction - strong certainty
+They ___ (finish) the market research by the deadline | should have finished | Past deduction - expectation about the past
+She ___ (not know) how to use the advanced features of the software | can't know | Present deduction - strong certainty about lack of knowledge
+He ___ (feel) concerned about the project timeline | must be feeling | Present continuous deduction - strong certainty
+They ___ (analyze) the competitor's strategy | must be analyzing | Present continuous deduction - strong certainty
+The team ___ (be) in the conference room for the weekly meeting | must be | Present deduction - strong certainty based on routine
+She ___ (not receive) the updated instructions | can't have received | Past deduction - strong certainty something didn't happen
+He ___ (prepare) for his performance review | must be preparing | Present continuous deduction - strong certainty
+They ___ (achieve) their conservation goals for this year | must have achieved | Past deduction - strong certainty about past action
+She ___ (be) at the training workshop all day | must be | Present deduction - strong certainty based on schedule
+He ___ (not understand) the technical specifications | can't have understood | Past deduction - strong certainty about lack of understanding
+They ___ (celebrate) the completion of the project | must be celebrating | Present continuous deduction - strong certainty
+The documents ___ (be) ready for signing by this afternoon | should be | Present deduction - expectation
+She ___ (not practice) her presentation enough times | can't have practiced | Past deduction - strong certainty about lack of action
+He ___ (work) on resolving the customer complaints | must be working | Present continuous deduction - strong certainty
+They ___ (implement) the new system by now | should have implemented | Past deduction - expectation about the past
+She ___ (not know) about the changes to the company policy | can't know | Present deduction - strong certainty about lack of knowledge
+He ___ (feel) excited about his upcoming vacation | must be feeling | Present continuous deduction - strong certainty
+They ___ (discuss) the quarterly financial results | must be discussing | Present continuous deduction - strong certainty
+The researchers ___ (be) in the field collecting data | must be | Present deduction - strong certainty based on project phase
