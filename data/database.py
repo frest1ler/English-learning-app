@@ -62,6 +62,32 @@ class LearningDatabase:
                     cefr_level TEXT NOT NULL DEFAULT 'A2',
                     UNIQUE(topic_id, sentence, answer)
                 );
+                CREATE TABLE IF NOT EXISTS vocabulary_topics (
+                    id INTEGER PRIMARY KEY,
+                    title TEXT NOT NULL COLLATE NOCASE UNIQUE,
+                    description TEXT NOT NULL DEFAULT ''
+                );
+                CREATE TABLE IF NOT EXISTS word_topic_links (
+                    word_id INTEGER NOT NULL REFERENCES words(id) ON DELETE CASCADE,
+                    topic_id INTEGER NOT NULL REFERENCES vocabulary_topics(id) ON DELETE CASCADE,
+                    PRIMARY KEY(word_id, topic_id)
+                );
+                CREATE TABLE IF NOT EXISTS generated_content (
+                    id INTEGER PRIMARY KEY,
+                    content_type TEXT NOT NULL,
+                    payload TEXT NOT NULL,
+                    model TEXT NOT NULL,
+                    generation_prompt TEXT NOT NULL,
+                    review_status TEXT NOT NULL DEFAULT 'pending',
+                    created_at TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS content_reviews (
+                    id INTEGER PRIMARY KEY,
+                    generated_content_id INTEGER NOT NULL REFERENCES generated_content(id) ON DELETE CASCADE,
+                    decision TEXT NOT NULL,
+                    notes TEXT NOT NULL DEFAULT '',
+                    created_at TEXT NOT NULL
+                );
                 CREATE TABLE IF NOT EXISTS answer_history (
                     id INTEGER PRIMARY KEY,
                     activity_type TEXT NOT NULL,
@@ -110,7 +136,22 @@ class LearningDatabase:
                     value TEXT NOT NULL
                 );
             """)
+            self._ensure_column(db, 'exercises', 'exercise_type',
+                                "TEXT NOT NULL DEFAULT 'grammar_gap'")
+            self._ensure_column(db, 'exercises', 'prompt_ru', "TEXT NOT NULL DEFAULT ''")
+            self._ensure_column(db, 'exercises', 'required_features', "TEXT NOT NULL DEFAULT '[]'")
+            self._ensure_column(db, 'exercises', 'source', "TEXT NOT NULL DEFAULT 'built_in'")
+            self._ensure_column(db, 'exercises', 'review_status', "TEXT NOT NULL DEFAULT 'approved'")
+            self._ensure_column(db, 'words', 'source', "TEXT NOT NULL DEFAULT 'built_in'")
+            self._ensure_column(db, 'words', 'review_status', "TEXT NOT NULL DEFAULT 'approved'")
+            self._ensure_column(db, 'words', 'generation_model', "TEXT NOT NULL DEFAULT ''")
         self._seed(words or [], exercises or {}, rules or [])
+
+    @staticmethod
+    def _ensure_column(db, table, column, declaration):
+        existing = {row['name'] for row in db.execute(f'PRAGMA table_info({table})')}
+        if column not in existing:
+            db.execute(f'ALTER TABLE {table} ADD COLUMN {column} {declaration}')
 
     def _seed(self, words, exercises, rules):
         now = utc_now()
@@ -182,7 +223,7 @@ class LearningDatabase:
         with self.connect() as db:
             cursor = db.execute(
                 """INSERT INTO words(word, translation, transcription, example,
-                   example_translation, created_at) VALUES (?, ?, ?, ?, ?, ?)""",
+                   example_translation, created_at, source) VALUES (?, ?, ?, ?, ?, ?, 'user')""",
                 (item['word'], item['translation'], item.get('transcription', '[...]'),
                  item.get('example', ''), item.get('example_translation', ''), now),
             )
@@ -296,8 +337,14 @@ class LearningDatabase:
         with self.connect() as db:
             rows = self._rows(db.execute("""
                 SELECT e.*, t.title AS rule FROM exercises e
-                JOIN grammar_topics t ON t.id = e.topic_id ORDER BY e.id
+                JOIN grammar_topics t ON t.id = e.topic_id
+                WHERE e.review_status='approved' ORDER BY e.id
             """))
+        for row in rows:
+            try:
+                row['required_features'] = json.loads(row.get('required_features') or '[]')
+            except json.JSONDecodeError:
+                row['required_features'] = []
         result = {}
         for row in rows:
             result.setdefault(row['rule'], []).append(row)
@@ -313,8 +360,23 @@ class LearningDatabase:
                     ORDER BY id DESC LIMIT 30
                 ) THEN 1 ELSE 0 END recently_seen
                 FROM exercises e JOIN grammar_topics t ON t.id=e.topic_id
-                JOIN topic_progress p ON p.topic_id=t.id"""))
+                JOIN topic_progress p ON p.topic_id=t.id
+                WHERE e.review_status='approved'"""))
         return select_adaptive(rows, min(count, len(rows)), user_level)
+
+    def get_translation_exercises(self, limit=None):
+        """Проверенные пары RU→EN из примеров словаря."""
+        query = """SELECT id, example_translation sentence, example answer,
+            'Перевод RU → EN' rule, 'translation_ru_en' exercise_type,
+            NULL topic_id, cefr_level, 0.55 difficulty,
+            'Сохраните смысл и используйте естественный английский порядок слов' hint
+            FROM words WHERE example != '' AND example_translation != '' ORDER BY id"""
+        parameters = ()
+        if limit is not None:
+            query += " LIMIT ?"
+            parameters = (int(limit),)
+        with self.connect() as db:
+            return self._rows(db.execute(query, parameters))
 
     def get_diagnostic_questions(self):
         questions = []
@@ -340,6 +402,133 @@ class LearningDatabase:
                 'item_id': item['id'], 'topic_id': None,
             })
         return questions
+
+    def search_materials(self, kind='all', search='', level='all', limit=500):
+        search_pattern = f"%{search.strip()}%"
+        materials = []
+        with self.connect() as db:
+            if kind in ('all', 'words'):
+                conditions = ["(word LIKE ? OR translation LIKE ?)"]
+                params = [search_pattern, search_pattern]
+                if level != 'all':
+                    conditions.append('cefr_level = ?'); params.append(level)
+                params.append(limit)
+                rows = self._rows(db.execute(f"""SELECT id, 'word' kind, word title,
+                    translation detail, cefr_level, source, review_status
+                    FROM words WHERE {' AND '.join(conditions)} ORDER BY word LIMIT ?""", params))
+                materials.extend(rows)
+            if kind in ('all', 'exercises') and len(materials) < limit:
+                conditions = ["(e.sentence LIKE ? OR e.answer LIKE ? OR t.title LIKE ?)"]
+                params = [search_pattern, search_pattern, search_pattern]
+                if level != 'all':
+                    conditions.append('e.cefr_level = ?'); params.append(level)
+                params.append(limit - len(materials))
+                rows = self._rows(db.execute(f"""SELECT e.id, 'exercise' kind,
+                    e.sentence title, e.answer detail, e.cefr_level, e.source,
+                    e.review_status, e.exercise_type, t.title rule FROM exercises e
+                    JOIN grammar_topics t ON t.id=e.topic_id
+                    WHERE {' AND '.join(conditions)} ORDER BY t.title, e.id LIMIT ?""", params))
+                materials.extend(rows)
+        return materials
+
+    def stage_generated(self, content_type, items, model, prompt):
+        ids = []
+        with self.connect() as db:
+            for item in items:
+                cursor = db.execute("""INSERT INTO generated_content
+                    (content_type, payload, model, generation_prompt, created_at)
+                    VALUES (?, ?, ?, ?, ?)""",
+                    (content_type, json.dumps(item, ensure_ascii=False), model, prompt, utc_now()))
+                ids.append(cursor.lastrowid)
+        return ids
+
+    def get_pending_generated(self, content_type=None):
+        query = "SELECT * FROM generated_content WHERE review_status='pending'"
+        params = ()
+        if content_type:
+            query += ' AND content_type=?'; params = (content_type,)
+        query += ' ORDER BY id'
+        with self.connect() as db:
+            rows = self._rows(db.execute(query, params))
+        for row in rows:
+            row['payload'] = json.loads(row['payload'])
+        return rows
+
+    def review_generated_word(self, candidate_id, approve, notes=''):
+        with self.connect() as db:
+            row = db.execute("SELECT * FROM generated_content WHERE id=? AND content_type='word'",
+                             (candidate_id,)).fetchone()
+            if not row or row['review_status'] != 'pending':
+                raise ValueError('Кандидат уже обработан или не найден')
+            decision = 'approved' if approve else 'rejected'
+            if approve:
+                item = json.loads(row['payload'])
+                cursor = db.execute("""INSERT INTO words(word, translation, transcription, example,
+                    example_translation, cefr_level, created_at, source, review_status, generation_model)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, 'qwen', 'approved', ?)""",
+                    (item['word'], item['translation'], item.get('transcription', '[...]'),
+                     item['example'], item['example_translation'], item['cefr_level'], utc_now(), row['model']))
+                db.execute("INSERT INTO word_progress(word_id, due_at) VALUES (?, ?)",
+                           (cursor.lastrowid, utc_now()))
+                topic_title = item.get('topic', '').strip()
+                if topic_title:
+                    db.execute("INSERT OR IGNORE INTO vocabulary_topics(title) VALUES (?)", (topic_title,))
+                    topic_id = db.execute("SELECT id FROM vocabulary_topics WHERE title=? COLLATE NOCASE",
+                                          (topic_title,)).fetchone()['id']
+                    db.execute("INSERT OR IGNORE INTO word_topic_links(word_id, topic_id) VALUES (?, ?)",
+                               (cursor.lastrowid, topic_id))
+            db.execute("UPDATE generated_content SET review_status=? WHERE id=?", (decision, candidate_id))
+            db.execute("""INSERT INTO content_reviews(generated_content_id, decision, notes, created_at)
+                VALUES (?, ?, ?, ?)""", (candidate_id, decision, notes, utc_now()))
+
+    def review_generated_exercise(self, candidate_id, approve, notes=''):
+        with self.connect() as db:
+            row = db.execute("SELECT * FROM generated_content WHERE id=? AND content_type='exercise'",
+                             (candidate_id,)).fetchone()
+            if not row or row['review_status'] != 'pending':
+                raise ValueError('Кандидат уже обработан или не найден')
+            decision = 'approved' if approve else 'rejected'
+            if approve:
+                from learning.content_models import validate_exercise
+                item = validate_exercise(json.loads(row['payload']))
+                topic = db.execute("SELECT id FROM grammar_topics WHERE title=? COLLATE NOCASE",
+                                   (item['rule'],)).fetchone()
+                if topic:
+                    topic_id = topic['id']
+                else:
+                    cursor = db.execute("""INSERT INTO grammar_topics(title, content, cefr_level)
+                        VALUES (?, ?, ?)""", (item['rule'], 'Правило добавлено из проверенного AI-материала.',
+                                               item['cefr_level']))
+                    topic_id = cursor.lastrowid
+                    db.execute("INSERT INTO topic_progress(topic_id) VALUES (?)", (topic_id,))
+                duplicate = db.execute("""SELECT id FROM exercises WHERE topic_id=? AND
+                    sentence=? COLLATE NOCASE AND answer=? COLLATE NOCASE""",
+                    (topic_id, item['sentence'], item['answer'])).fetchone()
+                if duplicate:
+                    raise ValueError('Такое упражнение уже существует')
+                db.execute("""INSERT INTO exercises(topic_id, sentence, answer, hint, difficulty,
+                    cefr_level, exercise_type, required_features, source, review_status)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'qwen', 'approved')""",
+                    (topic_id, item['sentence'], item['answer'], item['hint'], item['difficulty'],
+                     item['cefr_level'], item['exercise_type'],
+                     json.dumps(item['required_features'], ensure_ascii=False)))
+            db.execute("UPDATE generated_content SET review_status=? WHERE id=?", (decision, candidate_id))
+            db.execute("""INSERT INTO content_reviews(generated_content_id, decision, notes, created_at)
+                VALUES (?, ?, ?, ?)""", (candidate_id, decision, notes, utc_now()))
+
+    def get_recommendation_context(self):
+        stats = self.get_learning_stats()
+        weak_topics = [
+            {'title': item['title'], 'mastery': round(item['mastery'], 2),
+             'attempts': item['attempts']}
+            for item in stats['topics'][:5]
+        ]
+        return {
+            'user_level': self.get_setting('user_level', 'A2'),
+            'word_progress': stats['words'],
+            'weak_grammar_topics': weak_topics,
+            'frequent_errors': stats['errors'],
+        }
 
     def record_answer(self, **data):
         with self.connect() as db:

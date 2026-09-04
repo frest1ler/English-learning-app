@@ -8,6 +8,7 @@ import random
 import time
 import threading
 from config import COLORS, FONTS, EXERCISE_MIN_COUNT, EXERCISE_MAX_COUNT, EXERCISE_DEFAULT_COUNT
+from learning.exercise_modes import instruction_for_type, topic_text
 
 class ExercisesTab:
     """Класс для вкладки упражнений"""
@@ -53,27 +54,15 @@ class ExercisesTab:
         ).pack(pady=10, padx=10)
         
         # Фрейм для чекбоксов
-        checkbox_frame = tk.Frame(left_panel, bg='white')
-        checkbox_frame.pack(padx=10, pady=5)
+        self.checkbox_frame = tk.Frame(left_panel, bg='white')
+        self.checkbox_frame.pack(padx=10, pady=5)
         
         # Словарь для хранения переменных чекбоксов
         self.topic_vars = {}
         
         # Создаем чекбоксы для каждой темы
         for topic in self.app.exercises_data.keys():
-            var = tk.BooleanVar()
-            self.topic_vars[topic] = var
-            
-            cb = tk.Checkbutton(
-                checkbox_frame,
-                text=f"{topic} ({len(self.app.exercises_data[topic])})",
-                variable=var,
-                font=FONTS['small'],
-                bg='white',
-                anchor='w',
-                command=self.update_selected_topics
-            )
-            cb.pack(fill='x', pady=3)
+            self._add_topic_checkbox(topic)
         
         # Кнопки выбора всех/сброса
         button_frame = tk.Frame(left_panel, bg='white')
@@ -133,6 +122,22 @@ class ExercisesTab:
             length=150
         )
         self.exercise_count_scale.pack(pady=5)
+
+        tk.Label(settings_frame, text="Режим:", font=FONTS['tiny'], bg='white').pack()
+        self.training_type_var = tk.StringVar(value='grammar')
+        for value, title in (
+            ('grammar', 'Грамматика'), ('translation', 'RU → EN'), ('mixed', 'Смешанный')):
+            tk.Radiobutton(settings_frame, text=title, value=value,
+                           variable=self.training_type_var, font=FONTS['tiny'],
+                           bg='white').pack(anchor='w')
+
+        self.show_topic_var = tk.BooleanVar(
+            value=self.app.db.get_setting('show_exercise_topic', True))
+        tk.Checkbutton(
+            settings_frame, text="Показывать грамматическое время",
+            variable=self.show_topic_var, command=self.save_exercise_mode,
+            font=FONTS['tiny'], bg='white'
+        ).pack(pady=5)
         
         # Кнопка начала упражнений
         tk.Button(
@@ -151,6 +156,24 @@ class ExercisesTab:
             command=self.start_adaptive_exercises, font=FONTS['normal'],
             bg=COLORS['purple'], fg='white', padx=20, pady=10
         ).pack(pady=5)
+
+    def save_exercise_mode(self):
+        self.app.db.set_setting('show_exercise_topic', self.show_topic_var.get())
+
+    def _add_topic_checkbox(self, topic):
+        var = tk.BooleanVar(); self.topic_vars[topic] = var
+        tk.Checkbutton(
+            self.checkbox_frame,
+            text=f"{topic} ({len(self.app.exercises_data[topic])})",
+            variable=var, font=FONTS['small'], bg='white', anchor='w',
+            command=self.update_selected_topics
+        ).pack(fill='x', pady=3)
+
+    def refresh_topics(self):
+        for topic in self.app.exercises_data:
+            if topic not in self.topic_vars:
+                self._add_topic_checkbox(topic)
+        self.update_selected_topics()
 
     def start_adaptive_exercises(self):
         """Начать автоматически подобранную тренировку."""
@@ -354,15 +377,20 @@ class ExercisesTab:
     def start_mixed_exercises(self):
         """Начать упражнения по выбранным темам"""
         self.selected_topics = [topic for topic, var in self.topic_vars.items() if var.get()]
-        
-        if not self.selected_topics:
+        mode = self.training_type_var.get()
+
+        if mode != 'translation' and not self.selected_topics:
             messagebox.showwarning("Внимание", "Выберите хотя бы одну тему!")
             return
         
         # Собираем все упражнения из выбранных тем
         all_exercises = []
-        for topic in self.selected_topics:
-            all_exercises.extend(self.app.exercises_data[topic])
+        if mode in ('grammar', 'mixed'):
+            for topic in self.selected_topics:
+                for item in self.app.exercises_data[topic]:
+                    all_exercises.append({**item, 'exercise_type': 'grammar_gap'})
+        if mode in ('translation', 'mixed'):
+            all_exercises.extend(self.app.db.get_translation_exercises())
         
         # Перемешиваем и выбираем нужное количество
         random.shuffle(all_exercises)
@@ -377,7 +405,8 @@ class ExercisesTab:
         self.question_started_at = time.monotonic()
         
         self.rule_title_label.config(text="📚 Смешанные упражнения")
-        self.exercise_instruction_label.config(text="Поставьте глагол в правильную форму:")
+        self.exercise_instruction_label.config(
+            text="Выполните задание выбранного типа:")
         
         self.show_mixed_exercise()
     
@@ -391,9 +420,12 @@ class ExercisesTab:
         self.hint_used = False
         self.question_started_at = time.monotonic()
         self.current_exercise = self.mixed_exercises[self.current_exercise_index]
+        exercise_type = self.current_exercise.get('exercise_type', 'grammar_gap')
         
-        self.current_topic_label.config(text=f"📌 Тема: {self.current_exercise['rule']}")
+        self.current_topic_label.config(text=topic_text(
+            self.current_exercise['rule'], self.show_topic_var.get()))
         self.sentence_label.config(text=self.current_exercise['sentence'])
+        self.exercise_instruction_label.config(text=instruction_for_type(exercise_type))
         
         self.answer_entry.delete(0, tk.END)
         self.answer_entry.config(state='normal')
@@ -426,16 +458,53 @@ class ExercisesTab:
             return
         
         self.answer_checked = True
+        self.current_topic_label.config(text=topic_text(
+            self.current_exercise['rule'], self.show_topic_var.get(), answered=True))
         
         # Используем улучшенную проверку с поддержкой вариантов
         from utils.helpers import check_answer_match, format_correct_answer
         
         is_correct = check_answer_match(user_answer, self.current_exercise['answer'])
+        exercise_type = self.current_exercise.get('exercise_type', 'grammar_gap')
+        if exercise_type == 'translation_ru_en' and not is_correct:
+            self.result_label.config(text='🤖 Qwen проверяет допустимый вариант…', fg=COLORS['purple'])
+            self.answer_entry.config(state='disabled')
+
+            def evaluate_translation():
+                from llm.content_generator import TranslationEvaluator
+                from llm.providers import LLMUnavailableError, OllamaProvider
+                try:
+                    provider = OllamaProvider(model=self.app.db.get_setting('ollama_model', 'qwen3:4b'))
+                    result = TranslationEvaluator(provider).evaluate(
+                        self.current_exercise['sentence'], user_answer,
+                        self.current_exercise['answer'])
+                    explanation = result['explanation']
+                    accepted = result['is_correct']
+                except (LLMUnavailableError, ValueError) as error:
+                    accepted = False
+                    explanation = 'Ollama недоступна — применена строгая проверка по эталону.'
+                self.parent.after(0, lambda: self._finalize_answer(
+                    user_answer, accepted, 'Перевод RU → EN' if not accepted else None,
+                    explanation))
+
+            threading.Thread(target=evaluate_translation, daemon=True).start()
+            return
+        self._finalize_answer(user_answer, is_correct)
+
+    def _finalize_answer(self, user_answer, is_correct, error_type=None, explanation=''):
+        """Единообразно записать и показать результат локальной или AI-проверки."""
         from learning.error_analysis import classify_error
-        error_type = None if is_correct else classify_error(
-            self.current_exercise['rule'], user_answer, self.current_exercise['answer'])
+        from utils.helpers import format_correct_answer
+        exercise_type = self.current_exercise.get('exercise_type', 'grammar_gap')
+        if not is_correct and error_type is None:
+            error_type = (
+                'Перевод RU → EN' if exercise_type == 'translation_ru_en' else
+                classify_error(self.current_exercise['rule'], user_answer,
+                               self.current_exercise['answer']))
+        error_type = None if is_correct else (
+            error_type or 'Грамматическая форма')
         self.app.db.record_answer(
-            activity_type='grammar', item_id=self.current_exercise.get('id'),
+            activity_type=exercise_type, item_id=self.current_exercise.get('id'),
             topic_id=self.current_exercise.get('topic_id'),
             prompt=self.current_exercise['sentence'], user_answer=user_answer,
             correct_answer=self.current_exercise['answer'], is_correct=is_correct,
@@ -465,6 +534,8 @@ class ExercisesTab:
                 fg=COLORS['danger']
             )
             self.explain_button.pack(pady=5)
+        if explanation:
+            self.explanation_label.config(text=explanation)
         
         self.score_label.config(text=f"Счет: {self.app.score}/{self.app.total_attempts}")
         self.next_exercise_btn.config(state='normal')

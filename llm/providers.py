@@ -36,6 +36,14 @@ class OllamaProvider:
             f"Правильный ответ: {context.get('correct_answer', '')}\n"
             f"Подсказка автора: {context.get('hint', '')}"
         )
+        result = self.generate_json(prompt)
+        required = ('error_type', 'explanation', 'rule', 'example', 'mini_exercise')
+        if not all(isinstance(result.get(key), str) for key in required):
+            raise LLMUnavailableError('Модель вернула неполный ответ')
+        result['source'] = f'Ollama · {self.model}'
+        return result
+
+    def generate_json(self, prompt):
         body = json.dumps({
             'model': self.model, 'messages': [{'role': 'user', 'content': prompt}],
             'stream': False, 'format': 'json', 'options': {'temperature': 0.2},
@@ -45,14 +53,9 @@ class OllamaProvider:
         try:
             with urlopen(request, timeout=self.timeout) as response:
                 payload = json.loads(response.read().decode('utf-8'))
-            result = json.loads(payload['message']['content'])
+            return json.loads(payload['message']['content'])
         except (URLError, TimeoutError, OSError, KeyError, ValueError, json.JSONDecodeError) as error:
             raise LLMUnavailableError(str(error)) from error
-        required = ('error_type', 'explanation', 'rule', 'example', 'mini_exercise')
-        if not all(isinstance(result.get(key), str) for key in required):
-            raise LLMUnavailableError('Модель вернула неполный ответ')
-        result['source'] = f'Ollama · {self.model}'
-        return result
 
 
 class ExplanationService:

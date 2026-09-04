@@ -36,11 +36,12 @@ def select_adaptive(exercises, count, user_level='A2'):
         reverse=True,
     )
     # Сначала берём лучшие, но чередуем темы, чтобы тренировка не была монотонной.
-    selected, topic_counts = [], {}
+    selected, topic_counts, type_counts = [], {}, {}
     while ranked and len(selected) < count:
         best_index = min(
             range(len(ranked)),
-            key=lambda index: topic_counts.get(ranked[index]['rule'], 0) * 2 -
+            key=lambda index: (topic_counts.get(ranked[index]['rule'], 0) * 2 +
+                               type_counts.get(ranked[index].get('exercise_type', 'grammar_gap'), 0)) -
                               exercise_priority(ranked[index], ranked[index].get('mastery', 0), user_level,
                                                 bool(ranked[index].get('recently_seen')),
                                                 last_practiced_at=ranked[index].get('last_practiced_at')),
@@ -48,4 +49,6 @@ def select_adaptive(exercises, count, user_level='A2'):
         item = ranked.pop(best_index)
         selected.append(item)
         topic_counts[item['rule']] = topic_counts.get(item['rule'], 0) + 1
+        kind = item.get('exercise_type', 'grammar_gap')
+        type_counts[kind] = type_counts.get(kind, 0) + 1
     return selected

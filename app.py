@@ -15,6 +15,7 @@ from ui.stats_tab import StatsTab
 from ui.today_tab import TodayTab
 from llm.providers import ExplanationService, OllamaProvider
 from ui.settings_tab import SettingsTab
+from ui.materials_tab import MaterialsTab
 
 class EnglishLearningApp:
     """Главный класс приложения для изучения английского"""
@@ -124,6 +125,10 @@ class EnglishLearningApp:
         rules_frame = tk.Frame(self.notebook, bg=COLORS['light'])
         self.notebook.add(rules_frame, text='📋 Правила')
         self.rules_tab = RulesTab(rules_frame, self)
+
+        materials_frame = tk.Frame(self.notebook, bg=COLORS['light'])
+        self.notebook.add(materials_frame, text='🗂 Материалы')
+        self.materials_tab = MaterialsTab(materials_frame, self)
         
         # Вкладка статистики
         stats_frame = tk.Frame(self.notebook, bg=COLORS['light'])

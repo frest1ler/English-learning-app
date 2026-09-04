@@ -73,6 +73,56 @@ class LearningDatabaseTests(unittest.TestCase):
         self.assertEqual(stats['attempts'], 5)
         self.assertEqual(stats['correct'], 3)
 
+    def test_translation_exercises_use_verified_examples(self):
+        with self.db.connect() as connection:
+            connection.execute("""UPDATE words SET example='I go home.',
+                example_translation='Я иду домой.' WHERE word='go'""")
+        exercise = self.db.get_translation_exercises()[0]
+        self.assertEqual(exercise['sentence'], 'Я иду домой.')
+        self.assertEqual(exercise['answer'], 'I go home.')
+        self.assertEqual(exercise['exercise_type'], 'translation_ru_en')
+
+    def test_material_search_filters_kind_and_level(self):
+        words = self.db.search_materials('words', 'go', 'A2')
+        self.assertEqual(len(words), 1)
+        self.assertEqual(words[0]['kind'], 'word')
+        exercises = self.db.search_materials('exercises', 'Past Simple', 'A2')
+        self.assertEqual(len(exercises), 1)
+        self.assertEqual(exercises[0]['kind'], 'exercise')
+
+    def test_generated_exercise_requires_approval(self):
+        item = {'sentence':'She ___ every day.','answer':'works','hint':'he/she/it',
+                'rule':'Present Simple','exercise_type':'grammar_gap','cefr_level':'A1',
+                'difficulty':0.4,'required_features':['works']}
+        candidate_id = self.db.stage_generated('exercise', [item], 'qwen3:4b', 'prompt')[0]
+        before = len(self.db.get_exercises().get('Present Simple', []))
+        self.db.review_generated_exercise(candidate_id, True)
+        after = len(self.db.get_exercises()['Present Simple'])
+        self.assertEqual(after, before + 1)
+        adaptive_ids = {row['id'] for row in self.db.get_adaptive_exercises(200)}
+        with self.db.connect() as connection:
+            generated_id = connection.execute(
+                "SELECT id FROM exercises WHERE source='qwen'"
+            ).fetchone()[0]
+        self.assertIn(generated_id, adaptive_ids)
+
+    def test_generated_word_is_linked_to_topic_after_approval(self):
+        item = {'word':'deadline','translation':'срок','transcription':'[deadline]',
+                'example':'Meet the deadline.','example_translation':'Уложитесь в срок.',
+                'cefr_level':'B1','topic':'Work'}
+        candidate_id = self.db.stage_generated('word', [item], 'qwen3:4b', 'prompt')[0]
+        self.db.review_generated_word(candidate_id, True)
+        with self.db.connect() as connection:
+            link = connection.execute("""SELECT vt.title FROM word_topic_links l
+                JOIN vocabulary_topics vt ON vt.id=l.topic_id
+                JOIN words w ON w.id=l.word_id WHERE w.word='deadline'""").fetchone()
+        self.assertEqual(link['title'], 'Work')
+
+    def test_recommendation_context_contains_no_answer_text(self):
+        context = self.db.get_recommendation_context()
+        self.assertIn('weak_grammar_topics', context)
+        self.assertNotIn('answer_history', context)
+
 
 if __name__ == '__main__':
     unittest.main()
