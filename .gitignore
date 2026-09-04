@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+data_files/learning.db
+data_files/learning.db-*
+.pytest_cache/

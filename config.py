@@ -24,6 +24,10 @@ DATA_FILES = {
     'progress': os.path.join(DATA_FILES_DIR, 'progress.json')
 }
 
+# Локальная база приложения. TXT-файлы остаются исходным набором данных
+# и импортируются при первом запуске.
+DATABASE_PATH = os.path.join(DATA_FILES_DIR, 'learning.db')
+
 # Цвета
 COLORS = {
     'primary': '#3498db',

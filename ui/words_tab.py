@@ -5,6 +5,7 @@
 import tkinter as tk
 from tkinter import messagebox, scrolledtext
 import random
+import time
 from config import COLORS, FONTS, TEST_MIN_WORDS, TEST_MAX_WORDS, TEST_DEFAULT_WORDS
 from data.loader import DataLoader
 from utils.helpers import normalize_answer
@@ -27,6 +28,7 @@ class WordsTab:
         self.test_answer_checked = False
         self.current_correct_answer = ""
         self.current_question_type = ""
+        self.question_started_at = None
         
         self.create_ui()
     
@@ -108,6 +110,16 @@ class WordsTab:
             padx=15,
             pady=8
         ).pack(side='left', padx=5)
+
+        tk.Button(
+            mode_frame, text="🔁 Повторить слова", command=self.start_review,
+            font=FONTS['normal'], bg=COLORS['purple'], fg='white', padx=15, pady=8
+        ).pack(side='left', padx=5)
+
+    def start_review(self):
+        """Открыть очередь интервального повторения."""
+        from ui.review_window import ReviewWindow
+        ReviewWindow(self.parent, self.app)
     
     def create_search_panel(self):
         """Создание панели поиска"""
@@ -399,14 +411,14 @@ class WordsTab:
                 messagebox.showwarning("Внимание", "Заполните обязательные поля!")
                 return
             
-            self.app.words_data.append(word_data)
-            
-            if DataLoader.save_word(word_data):
+            try:
+                word_data['id'] = self.app.db.add_word(word_data)
+                self.app.words_data.append(word_data)
                 messagebox.showinfo("Успешно", "Слово добавлено!")
                 dialog.destroy()
                 self.show_word()
-            else:
-                messagebox.showerror("Ошибка", "Не удалось сохранить слово")
+            except Exception as error:
+                messagebox.showerror("Ошибка", f"Не удалось сохранить слово: {error}")
         
         tk.Button(
             dialog,
@@ -758,6 +770,7 @@ class WordsTab:
         
         self.test_answer_checked = False
         current_word = self.test_words[self.test_current_index]
+        self.question_started_at = time.monotonic()
         
         self.test_progress_label.config(
             text=f"Вопрос {self.test_current_index + 1} из {len(self.test_words)}"
@@ -825,6 +838,14 @@ class WordsTab:
         from utils.helpers import check_answer_match, format_correct_answer
         
         is_correct = check_answer_match(user_answer, self.current_correct_answer)
+        current_word = self.test_words[self.test_current_index]
+        response_ms = int((time.monotonic() - self.question_started_at) * 1000)
+        self.app.db.record_answer(
+            activity_type='word_test', item_id=current_word.get('id'),
+            prompt=self.test_question_label.cget('text'), user_answer=user_answer,
+            correct_answer=self.current_correct_answer, is_correct=is_correct,
+            response_ms=response_ms,
+        )
         
         self.test_answers.append({
             'word': self.test_words[self.test_current_index],
@@ -864,6 +885,13 @@ class WordsTab:
             return
         
         self.test_answer_checked = True
+        current_word = self.test_words[self.test_current_index]
+        self.app.db.record_answer(
+            activity_type='word_test', item_id=current_word.get('id'),
+            prompt=self.test_question_label.cget('text'), user_answer='',
+            correct_answer=self.current_correct_answer, is_correct=False,
+            response_ms=int((time.monotonic() - self.question_started_at) * 1000),
+        )
         
         self.test_answers.append({
             'word': self.test_words[self.test_current_index],

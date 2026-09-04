@@ -5,6 +5,8 @@
 import tkinter as tk
 from tkinter import messagebox, scrolledtext
 import random
+import time
+import threading
 from config import COLORS, FONTS, EXERCISE_MIN_COUNT, EXERCISE_MAX_COUNT, EXERCISE_DEFAULT_COUNT
 
 class ExercisesTab:
@@ -21,6 +23,8 @@ class ExercisesTab:
         self.current_exercise = None
         self.exercise_results = []
         self.answer_checked = False
+        self.hint_used = False
+        self.question_started_at = None
         
         self.create_ui()
     
@@ -141,6 +145,28 @@ class ExercisesTab:
             padx=20,
             pady=10
         ).pack(pady=15)
+
+        tk.Button(
+            left_panel, text="🧠 Умная тренировка",
+            command=self.start_adaptive_exercises, font=FONTS['normal'],
+            bg=COLORS['purple'], fg='white', padx=20, pady=10
+        ).pack(pady=5)
+
+    def start_adaptive_exercises(self):
+        """Начать автоматически подобранную тренировку."""
+        count = self.exercise_count_var.get()
+        level = self.app.db.get_setting('user_level', 'A2')
+        self.mixed_exercises = self.app.db.get_adaptive_exercises(count, level)
+        if not self.mixed_exercises:
+            messagebox.showinfo("Тренировка", "Нет доступных упражнений.")
+            return
+        self.selected_topics = sorted({item['rule'] for item in self.mixed_exercises})
+        self.current_exercise_index = 0
+        self.exercise_results = []
+        self.answer_checked = False
+        self.rule_title_label.config(text="🧠 Умная тренировка")
+        self.exercise_instruction_label.config(text="Упражнения подобраны по вашему прогрессу")
+        self.show_mixed_exercise()
     
     def create_right_panel(self, parent):
         """Создание правой панели с упражнениями"""
@@ -251,6 +277,16 @@ class ExercisesTab:
             bg=COLORS['light']
         )
         self.result_label.pack(pady=10)
+
+        self.explain_button = tk.Button(
+            right_panel, text="🤖 Объяснить ошибку", command=self.explain_error,
+            font=FONTS['small'], bg=COLORS['purple'], fg='white', padx=15, pady=6
+        )
+        self.explanation_label = tk.Label(
+            right_panel, text="", font=FONTS['small'], bg=COLORS['light'],
+            fg=COLORS['dark'], wraplength=560, justify='left'
+        )
+        self.explanation_label.pack(pady=5)
         
         # Кнопка следующего упражнения
         self.next_exercise_btn = tk.Button(
@@ -337,6 +373,8 @@ class ExercisesTab:
         self.current_exercise_index = 0
         self.exercise_results = []
         self.answer_checked = False
+        self.hint_used = False
+        self.question_started_at = time.monotonic()
         
         self.rule_title_label.config(text="📚 Смешанные упражнения")
         self.exercise_instruction_label.config(text="Поставьте глагол в правильную форму:")
@@ -350,6 +388,8 @@ class ExercisesTab:
             return
         
         self.answer_checked = False
+        self.hint_used = False
+        self.question_started_at = time.monotonic()
         self.current_exercise = self.mixed_exercises[self.current_exercise_index]
         
         self.current_topic_label.config(text=f"📌 Тема: {self.current_exercise['rule']}")
@@ -358,6 +398,8 @@ class ExercisesTab:
         self.answer_entry.delete(0, tk.END)
         self.answer_entry.config(state='normal')
         self.result_label.config(text="")
+        self.explain_button.pack_forget()
+        self.explanation_label.config(text="")
         self.hint_label.config(text="")
         self.next_exercise_btn.config(state='disabled')
         
@@ -370,6 +412,7 @@ class ExercisesTab:
     def show_hint(self):
         """Показать подсказку"""
         if self.current_exercise and self.current_exercise['hint']:
+            self.hint_used = True
             self.hint_label.config(text=f"💡 {self.current_exercise['hint']}")
     
     def check_grammar_answer(self):
@@ -388,6 +431,17 @@ class ExercisesTab:
         from utils.helpers import check_answer_match, format_correct_answer
         
         is_correct = check_answer_match(user_answer, self.current_exercise['answer'])
+        from learning.error_analysis import classify_error
+        error_type = None if is_correct else classify_error(
+            self.current_exercise['rule'], user_answer, self.current_exercise['answer'])
+        self.app.db.record_answer(
+            activity_type='grammar', item_id=self.current_exercise.get('id'),
+            topic_id=self.current_exercise.get('topic_id'),
+            prompt=self.current_exercise['sentence'], user_answer=user_answer,
+            correct_answer=self.current_exercise['answer'], is_correct=is_correct,
+            response_ms=int((time.monotonic() - self.question_started_at) * 1000),
+            hint_used=self.hint_used, error_type=error_type,
+        )
         
         self.app.total_attempts += 1
         
@@ -410,6 +464,7 @@ class ExercisesTab:
                 text=f"❌ Неправильно. Правильный ответ: {formatted_answer}",
                 fg=COLORS['danger']
             )
+            self.explain_button.pack(pady=5)
         
         self.score_label.config(text=f"Счет: {self.app.score}/{self.app.total_attempts}")
         self.next_exercise_btn.config(state='normal')
@@ -417,6 +472,35 @@ class ExercisesTab:
         
         self.app.update_stats()
         self.app.save_progress()
+
+    def explain_error(self):
+        """Получить объяснение в фоне и безопасно обновить Tkinter."""
+        if not self.current_exercise:
+            return
+        context = {
+            'topic': self.current_exercise['rule'],
+            'sentence': self.current_exercise['sentence'],
+            'user_answer': self.answer_entry.get().strip(),
+            'correct_answer': self.current_exercise['answer'],
+            'hint': self.current_exercise.get('hint', ''),
+        }
+        from learning.error_analysis import classify_error
+        context['error_type'] = classify_error(
+            context['topic'], context['user_answer'], context['correct_answer'])
+        self.explain_button.config(state='disabled', text='AI думает…')
+
+        def worker():
+            result = self.app.explanation_service.explain_error(context)
+            rendered = (f"{result['explanation']}\nПравило: {result['rule']}\n"
+                        f"Пример: {result['example']}\nМини-задание: {result['mini_exercise']}\n"
+                        f"Источник: {result['source']}")
+            self.parent.after(0, lambda: self._show_explanation(rendered))
+
+        threading.Thread(target=worker, daemon=True).start()
+
+    def _show_explanation(self, text):
+        self.explanation_label.config(text=text)
+        self.explain_button.config(state='normal', text='🤖 Объяснить ещё раз')
     
     def next_exercise(self):
         """Следующее упражнение"""
@@ -512,6 +596,8 @@ class ExercisesTab:
         self.sentence_label.config(text="")
         self.exercise_progress_label.config(text="")
         self.result_label.config(text="")
+        self.explain_button.pack_forget()
+        self.explanation_label.config(text="")
         self.hint_label.config(text="")
         self.current_topic_label.config(text="")
         self.rule_title_label.config(text="Выберите темы и нажмите 'Начать упражнения'")
