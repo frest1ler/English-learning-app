@@ -1,0 +1,35 @@
+name: Release
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+jobs:
+  package:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact: EnglishLearningApp-linux-x86_64
+          - os: windows-latest
+            artifact: EnglishLearningApp-windows-x64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install -e ".[dev]"
+      - run: python -m PyInstaller --clean --noconfirm packaging/english-learning.spec
+      - name: Archive Linux
+        if: runner.os == 'Linux'
+        run: tar -C dist -czf dist/${{ matrix.artifact }}.tar.gz EnglishLearningApp
+      - name: Archive Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: Compress-Archive dist/EnglishLearningApp dist/${{ matrix.artifact }}.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: dist/${{ matrix.artifact }}.*

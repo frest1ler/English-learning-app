@@ -1,0 +1,28 @@
+services:
+  test:
+    build:
+      context: .
+      dockerfile: infra/docker/Dockerfile
+      target: test
+    environment:
+      ENGLISH_LEARNING_DATA_DIR: /tmp/english-learning-test
+
+  gui-smoke:
+    build:
+      context: .
+      dockerfile: infra/docker/Dockerfile
+      target: gui-smoke
+    environment:
+      ENGLISH_LEARNING_DATA_DIR: /tmp/english-learning-smoke
+
+  ollama:
+    profiles: ["ai"]
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    restart: unless-stopped
+
+volumes:
+  ollama-data:

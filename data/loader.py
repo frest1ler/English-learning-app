@@ -8,10 +8,10 @@ class DataLoader:
     """Класс для загрузки данных из файлов"""
     
     @staticmethod
-    def load_words():
+    def load_words(path=None):
         """Загрузка слов из файла"""
         try:
-            with open(DATA_FILES['words'], 'r', encoding='utf-8') as f:
+            with open(path or DATA_FILES['words'], 'r', encoding='utf-8') as f:
                 words = []
                 line_number = 0
                 for line in f:
@@ -31,6 +31,8 @@ class DataLoader:
                             print(f"Предупреждение: неверный формат в строке {line_number}")
                 return words if words else DataLoader.get_default_words()
         except FileNotFoundError:
+            if path:
+                return DataLoader.get_default_words()
             from data.sample_creator import SampleCreator
             SampleCreator.create_all_files()
             return DataLoader.load_words()
@@ -66,10 +68,10 @@ class DataLoader:
         ]
     
     @staticmethod
-    def load_exercises():
+    def load_exercises(path=None):
         """Загрузка упражнений из файла"""
         try:
-            with open(DATA_FILES['exercises'], 'r', encoding='utf-8') as f:
+            with open(path or DATA_FILES['exercises'], 'r', encoding='utf-8') as f:
                 exercises = {}
                 current_rule = None
                 
@@ -94,15 +96,17 @@ class DataLoader:
                 
                 return exercises
         except FileNotFoundError:
+            if path:
+                return {}
             from data.sample_creator import SampleCreator
             SampleCreator.create_all_files()
             return DataLoader.load_exercises()
     
     @staticmethod
-    def load_rules():
+    def load_rules(path=None):
         """Загрузка правил из файла"""
         try:
-            with open(DATA_FILES['rules'], 'r', encoding='utf-8') as f:
+            with open(path or DATA_FILES['rules'], 'r', encoding='utf-8') as f:
                 rules = []
                 current_rule = {'title': '', 'content': ''}
                 

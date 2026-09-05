@@ -2,4 +2,11 @@ __pycache__/
 *.py[cod]
 data_files/learning.db
 data_files/learning.db-*
+data_files/progress.json
 .pytest_cache/
+.venv/
+build/
+dist/
+*.egg-info/
+.mypy_cache/
+.ruff_cache/

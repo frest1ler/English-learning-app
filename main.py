@@ -1,16 +1,15 @@
-"""
-English Learning Application
-Точка входа в приложение
-"""
+"""Repository entry point for the PySide6 desktop application."""
 
-import tkinter as tk
-from app import EnglishLearningApp
+from pathlib import Path
+import sys
 
-def main():
-    """Запуск приложения"""
-    root = tk.Tk()
-    app = EnglishLearningApp(root)
-    root.mainloop()
+
+SOURCE_DIRECTORY = Path(__file__).resolve().parent / "src"
+if str(SOURCE_DIRECTORY) not in sys.path:
+    sys.path.insert(0, str(SOURCE_DIRECTORY))
+
+from english_learning.main import main  # noqa: E402
+
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

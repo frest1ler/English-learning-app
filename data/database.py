@@ -16,8 +16,8 @@ def utc_now():
 class LearningDatabase:
     """Единая точка доступа к локальной базе приложения."""
 
-    def __init__(self, path=DATABASE_PATH):
-        self.path = str(path)
+    def __init__(self, path=None):
+        self.path = str(path or DATABASE_PATH)
 
     @contextmanager
     def connect(self):
